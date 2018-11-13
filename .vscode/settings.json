@@ -1,0 +1,12 @@
+{
+    "typescript.validate.enable": false,
+    "typescript.autoClosingTags": false,
+    "typescript.format.enable": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "typescript.suggestionActions.enabled": false,
+    "typescript.suggest.autoImports": false,
+    "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+    "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "typescript.suggest.paths": false
+}
