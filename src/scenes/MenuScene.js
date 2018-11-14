@@ -33,7 +33,8 @@ export class MenuScene extends Phaser.Scene{
         });
 
         playButton.on("pointerdown", ()=> {
-            console.log("down");
+            console.log("GOING TO GAME SCENE");
+            this.scene.start(CST.SCENES.GAME)
         });
 
         playButton.on("pointerup", ()=> {
