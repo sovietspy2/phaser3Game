@@ -59,6 +59,8 @@ export class GameScene extends Phaser.Scene {
         // fix the text to the camera
         this.text.setScrollFactor(0);
 
+        this.score = 0;
+
     }
 
     // this function will be called when the player touches a coin
