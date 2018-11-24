@@ -10,7 +10,23 @@ export class LoadScene extends Phaser.Scene {
     }
 
     preload() {
+
+
         console.log("PRELOAD FUNCTION START");
+
+
+        this.load.spritesheet(
+            "player",
+            "assets/player_sprite.png",
+            {
+              frameWidth: 32,
+              frameHeight: 32,
+              margin: 1,
+              spacing: 2
+            }
+          );
+
+
         this.load.image("title_bg", "./assets/image/title_bg.jpg")
         //....
         this.load.image('playButton', 'assets/image/play_button.png');
@@ -44,7 +60,7 @@ export class LoadScene extends Phaser.Scene {
         });
 
         this.load.on("complete", () => {
-            this.scene.start(CST.SCENES.MENU);
+            this.scene.start(CST.SCENES.MENU, "test");
         });
 
 
@@ -54,7 +70,7 @@ export class LoadScene extends Phaser.Scene {
         // simple coin image
         this.load.image('coin', 'assets/coinGold.png');
         // player animations
-        this.load.atlas('player', 'assets/player.png', 'assets/player.json');
+        //this.load.atlas('player', 'assets/player.png', 'assets/player.json');
 
         console.log("PRELOAD FUNCTION END");
     }
