@@ -5,12 +5,6 @@ import {MenuScene} from "./scenes/MenuScene";
 import { GameScene } from "./scenes/GameScene";
 
 
-var map;
-var player;
-var cursors;
-var groundLayer, coinLayer;
-var text;
-var score = 0;
 
 let game = new Phaser.Game({
     type: Phaser.AUTO,
@@ -19,8 +13,8 @@ let game = new Phaser.Game({
             physics: {
                 default: 'arcade',
                arcade: {
-                    gravity: { y: 300 },
-                    debug: false
+                    gravity: { y: 400 },
+                    debug: true
                 }
             },
             scene: [
