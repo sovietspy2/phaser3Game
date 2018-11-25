@@ -65,7 +65,7 @@ export class GameScene extends Phaser.Scene {
 
 
         // handling death
-        if (this.player.sprite.y > this.map.heightInPixels) {
+        if (this.player.sprite.y > this.map.heightInPixels-20) {
            //debugger;
            console.log("player destroyed, scene restarting . . . ")
            this.player.destroy();
