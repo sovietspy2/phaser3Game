@@ -68,6 +68,12 @@ export class LoadScene extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', 'assets/castle.json');
         // tiles in spritesheet 
         this.load.spritesheet('tiles', 'assets/tile_castle.png', { frameWidth: 32, frameHeight: 32 });
+
+        this.load.spritesheet('hero-idle', 'assets/hero-idle.png', { frameWidth: 37, frameHeight: 48 });
+        this.load.spritesheet('hero-jump', 'assets/hero-jump.png', { frameWidth: 60, frameHeight: 77 });
+        this.load.spritesheet('hero-attack', 'assets/hero-attack.png', { frameWidth: 110, frameHeight: 48 });
+        this.load.spritesheet('hero-run', 'assets/hero-run.png', { frameWidth: 65, frameHeight: 48 });
+
         // simple coin image
         //this.load.image('coin', 'assets/coinGold.png');
         // player animations
@@ -85,6 +91,27 @@ export class LoadScene extends Phaser.Scene {
             key: 'spin',
             frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 6 }),
             frameRate: 16,
+            repeat: Phaser.FOREVER
+        });
+
+        this.anims.create({
+            key: 'hero-idle',
+            frames: this.anims.generateFrameNumbers('hero-idle', { start: 0, end: 3 }),
+            frameRate: 7,
+            repeat: Phaser.FOREVER
+        });
+
+        this.anims.create({
+            key: 'hero-jump',
+            frames: this.anims.generateFrameNumbers('hero-jump', { start: 0, end: 4 }),
+            frameRate: 7,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'hero-run',
+            frames: this.anims.generateFrameNumbers('hero-run', { start: 0, end: 11 }),
+            frameRate: 12,
             repeat: Phaser.FOREVER
         });
 

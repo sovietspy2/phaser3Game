@@ -10,11 +10,13 @@ let game = new Phaser.Game({
     type: Phaser.AUTO,
             width: 800,
             height: 600,
+            pixerArt: true,
             physics: {
-                default: 'arcade',
+               default: 'arcade',
                arcade: {
                     gravity: { y: 1000 },
                     debug: true
+
                 }
             },
             scene: [
