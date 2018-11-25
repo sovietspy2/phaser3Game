@@ -11,13 +11,13 @@ export default class Player {
           key: "player-idle",
           frames: anims.generateFrameNumbers("player", { start: 0, end: 3 }),
           frameRate: 3,
-          repeat: -1
+          repeat: Phaser.FOREVER
         });
         anims.create({
           key: "player-run",
           frames: anims.generateFrameNumbers("player", { start: 8, end: 15 }),
           frameRate: 12,
-          repeat: -1
+          repeat: Phaser.FOREVER
         });
 
         // player creating
@@ -38,6 +38,8 @@ export default class Player {
             a: A,
             d: D
         });
+
+
     }
 
     update() {

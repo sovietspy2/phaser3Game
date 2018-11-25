@@ -15,32 +15,36 @@ export class GameScene extends Phaser.Scene {
     create() {
         console.log("GAME SCENE CREATE START");
 
-
         this.map = this.make.tilemap({ key: 'map' });
-        var groundTiles = this.map.addTilesetImage('tiles');
-        this.groundLayer = this.map.createDynamicLayer('World', groundTiles, 0, 0);
-        this.groundLayer.setCollisionByExclusion([-1]);
+        var tiles = this.map.addTilesetImage('MapDetails','tiles');
+        //var iconTiles = this.map.addTilesetImage('fb');
+        this.groundLayer3 = this.map.createDynamicLayer('Background', tiles,0,0);
+        this.groundLayer = this.map.createStaticLayer('World', tiles,0,0);
+        this.map.setCollisionByProperty({collides: true});
+        this.groundLayer2 = this.map.createStaticLayer('Lamps', tiles,0,0);
+        this.layer1 = this.map.createStaticLayer('Flooring', tiles,0,0);
+        this.groundLayer5 = this.map.createStaticLayer('Props', tiles,0,0);
+        var coinTiles = this.map.addTilesetImage('stolencoin','coin');
+        this.coinLayer = this.map.createDynamicLayer('CoinLayer', coinTiles, 0, 0);
 
-        var coinTiles = this.map.addTilesetImage('coin');
-        this.coinLayer = this.map.createDynamicLayer('Coins', coinTiles, 0, 0);
+
+       
+        //this.coinLayer.setTileIndexCallback(192, this.collectCoin, this);
+        
+
 
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
 
         // create the player sprite    
-        this.player = new Player(this, 200, 200);
+        const spawnPoint = this.map.findObject("Objects", obj => obj.name === "spawn");
+        this.player = new Player(this, spawnPoint.x, spawnPoint.y);
 
-
-        // small fix to our player images, we resize the physics body object slightly
-      
-        // player will collide with the level tiles 
-        this.physics.add.collider(this.groundLayer, this.player.sprite);
-
-        this.coinLayer.setTileIndexCallback(17, this.collectCoin, this);
-        // when the player overlaps with a tile with index 17, collectCoin 
-        // will be called    
+        
+        this.physics.add.collider(this.player.sprite, this.groundLayer);
+        //this.physics.add.overlap(this.player.sprite, this.coinLayer, this.collectCoin, null, this);
+        this.coinLayer.setTileIndexCallback(226, this.collectCoin, this);
         this.physics.add.overlap(this.player.sprite, this.coinLayer);
-
 
 
         // set bounds so the camera won't go outside the game world
@@ -65,6 +69,7 @@ export class GameScene extends Phaser.Scene {
 
     // this function will be called when the player touches a coin
     collectCoin(sprite, tile) {
+        console.log("collectCion triggered");
         this.coinLayer.removeTileAt(tile.x, tile.y); // remove the tile/coin
         this.score++; // add 10 points to the score
         this.text.setText(this.score); // set the text to show the current score
