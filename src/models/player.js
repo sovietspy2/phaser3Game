@@ -2,6 +2,8 @@ export default class Player {
     constructor(scene, x, y) {
         this.scene = scene;
 
+        const spawnPoint = this.scene.map.findObject("Objects", obj => obj.name === "spawn");
+
         // anims
         const anims = scene.anims;
 
@@ -21,9 +23,10 @@ export default class Player {
         });
 
         // player creating
+        this.score = 0;
 
         this.sprite = scene.physics.add
-            .sprite(x,y, "player", 0)
+            .sprite(spawnPoint.x,spawnPoint.y, "player", 0)
             .setDrag(1000,0)
             .setMaxVelocity(300,400)
             .setSize(20,20) // hitbox size

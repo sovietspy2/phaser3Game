@@ -73,12 +73,20 @@ export class LoadScene extends Phaser.Scene {
         // player animations
         //this.load.atlas('player', 'assets/player.png', 'assets/player.json');
 
+        
+
+
         console.log("PRELOAD FUNCTION END");
     }
     create() {
         console.log("LOAD SCENE CREATE FUNCTION START ");
 
-
+        this.anims.create({
+            key: 'spin',
+            frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 6 }),
+            frameRate: 16,
+            repeat: Phaser.FOREVER
+        });
 
         //this.scene.start(CST.SCENES.MENU)
 
