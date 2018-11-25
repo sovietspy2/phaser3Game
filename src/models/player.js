@@ -2,6 +2,8 @@ export default class Player {
     constructor(scene, x, y) {
         this.scene = scene;
 
+        const spawnPoint = this.scene.map.findObject("Objects", obj => obj.name === "spawn");
+
         // anims
         const anims = scene.anims;
 
@@ -11,19 +13,20 @@ export default class Player {
           key: "player-idle",
           frames: anims.generateFrameNumbers("player", { start: 0, end: 3 }),
           frameRate: 3,
-          repeat: -1
+          repeat: Phaser.FOREVER
         });
         anims.create({
           key: "player-run",
           frames: anims.generateFrameNumbers("player", { start: 8, end: 15 }),
           frameRate: 12,
-          repeat: -1
+          repeat: Phaser.FOREVER
         });
 
         // player creating
+        this.score = 0;
 
         this.sprite = scene.physics.add
-            .sprite(x,y, "player", 0)
+            .sprite(spawnPoint.x,spawnPoint.y, "player", 0)
             .setDrag(1000,0)
             .setMaxVelocity(300,400)
             .setSize(20,20) // hitbox size
@@ -38,6 +41,8 @@ export default class Player {
             a: A,
             d: D
         });
+
+
     }
 
     update() {
