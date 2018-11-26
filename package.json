@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest",
+    "test": "node --experimental-modules jest",
     "dev": "parcel index.html",
     "build": "parcel build index.html"
   },
