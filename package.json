@@ -26,8 +26,6 @@
     "babel-core": "*",
     "babel-jest": "*",
     "babel-preset-es2015": "^6.24.1",
-    "canvas": "^2.1.0",
-    "jest-cli": "*",
-    "jsdom": "^13.0.0"
+    "jest-cli": "*"
   }
 }

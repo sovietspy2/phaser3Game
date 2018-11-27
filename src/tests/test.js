@@ -1,5 +1,4 @@
 import Player from "../models/player";
-import Phaser from 'phaser';
 
 describe('Testing player model', () => {
     
