@@ -71,7 +71,7 @@ export class LoadScene extends Phaser.Scene {
 
         this.load.spritesheet('hero-idle', 'assets/hero-idle.png', { frameWidth: 37, frameHeight: 48 });
         this.load.spritesheet('hero-jump', 'assets/hero-jump.png', { frameWidth: 60, frameHeight: 77 });
-        this.load.spritesheet('hero-attack', 'assets/hero-attack.png', { frameWidth: 110, frameHeight: 48 });
+        this.load.spritesheet('hero-attack', 'assets/hero-attack.png', { frameWidth: 100, frameHeight: 48 });
         this.load.spritesheet('hero-run', 'assets/hero-run.png', { frameWidth: 65, frameHeight: 48 });
 
         // simple coin image
@@ -86,6 +86,14 @@ export class LoadScene extends Phaser.Scene {
     }
     create() {
         console.log("LOAD SCENE CREATE FUNCTION START ");
+
+
+        this.anims.create({
+            key: 'hero-attack',
+            frames: this.anims.generateFrameNumbers('hero-attack', { frames: [0,1,2,3,4,5]}),
+            frameRate: 8,
+            repeat: 0,
+        });
 
         this.anims.create({
             key: 'spin',
