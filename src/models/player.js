@@ -18,7 +18,6 @@ export default class Player {
             .setDrag(1000,0)
             .setMaxVelocity(300,400)
             .setSize(20,50) // hitbox size
-            .setOffset(10, 0)
             .setCollideWorldBounds(true);
 
         const { LEFT, RIGHT, UP, W, A, D , SPACE} = Phaser.Input.Keyboard.KeyCodes;
@@ -65,9 +64,9 @@ export default class Player {
         if (keys.space.isDown) {
           this.attack(sprite);
           if (sprite.flipX) { // character facing left
-            sprite.setOffset(50, 0);
+            //sprite.setOffset(50, 0);
           } else { // character facing right
-            sprite.setOffset(30, 0);
+            //sprite.setOffset(30, 0);
           }
           console.log("attacking");
           // Phaser.Math.Distance.Between() this is gonna calculate wheter it huts something or not
@@ -83,24 +82,24 @@ export default class Player {
           sprite.setFlipX(true);
           
           if (onGround) {
-            this.sprite.setOffset(20, 0);
+            //this.sprite.setOffset(20, 0);
           }
           
         } else if (keys.right.isDown || keys.d.isDown) {
           sprite.setAccelerationX(acceleration);
           sprite.setFlipX(false); // RIGHT
           if (onGround) {
-            sprite.setOffset(25, 0);
+            //sprite.setOffset(25, 0);
           }
          
         } else {
           sprite.setAccelerationX(0);
           if (sprite.flipX) {
             //left
-            sprite.setOffset(70, 0);  
+            //sprite.setOffset(70, 0);  
           } else {
             // right
-            sprite.setOffset(30, 0);  
+            //sprite.setOffset(30, 0);  
           }
            
         }
@@ -113,23 +112,56 @@ export default class Player {
           if ((keys.up.isDown || keys.w.isDown)) {
             sprite.setVelocityY(-500);
             if (sprite.flipX) { // RIGHT
-              sprite.setOffset(10, 10);
+              //sprite.setOffset(10, 10);
             } else { // LEFT
-              sprite.setOffset(30, 10);
+              //sprite.setOffset(30, 10);
             }
             sprite.anims.play("hero-jump", true);
           } else if (sprite.body.velocity.x !== 0) {
             sprite.anims.play("hero-run", true);
           } else {
             sprite.anims.play("hero-idle", true);
-            sprite.setOffset(10, 0);
+            //sprite.setOffset(10, 0);
           }
         }
       }
 
-      setPlayerOffset(x,y, turn) {
+      setPlayerOffset(running , facing, jumping, attacking) {
+               if (running && facing == "right" && jumping && attacking) {
+
+        } else if (running && facing == "right" && jumping && !attacking) {
+
+        } else if (running && facing == "right" && !jumping && attacking) {
+
+        } else if (running && facing == "right" && !jumping && !attacking) {
+
+        } else if (running && facing == "left" && jumping && attacking) {
+
+        } else if (running && facing == "left" && jumping && !attacking) {
+
+          } else if (running && facing == "left" && !jumping && attacking) {
+  
+          } else if (running && facing == "left" && !jumping && !attacking) {
+
+          } else if (!running && facing == "left" && jumping && attacking) {
+
+          } else if (!running && facing == "left" && jumping && !attacking) {
+  
+            } else if (!running && facing == "left" && !jumping && attacking) {
+    
+            } else if (!running && facing == "left" && !jumping && !attacking) {
+  
+          } else if (!running && facing == "right" && jumping && attacking) {
+
+          } else if (!running && facing == "right" && jumping && !attacking) {
+  
+            } else if (!running && facing == "right" && !jumping && attacking) {
+    
+            } else if (!running && facing == "right" && !jumping && !attacking) {
+
 
       }
+    }
 
       setJumpingFalse() {
         this.jumping = false;
