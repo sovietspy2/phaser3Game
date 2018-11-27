@@ -15,16 +15,7 @@ export class LoadScene extends Phaser.Scene {
         console.log("PRELOAD FUNCTION START");
 
 
-        this.load.spritesheet(
-            "player",
-            "assets/player_sprite.png",
-            {
-              frameWidth: 32,
-              frameHeight: 32,
-              margin: 1,
-              spacing: 2
-            }
-          );
+ 
 
 
         this.load.image("title_bg", "./assets/image/title_bg.jpg")
@@ -73,6 +64,7 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet('hero-jump', 'assets/hero-jump.png', { frameWidth: 60, frameHeight: 77 });
         this.load.spritesheet('hero-attack', 'assets/hero-attack.png', { frameWidth: 100, frameHeight: 48 });
         this.load.spritesheet('hero-run', 'assets/hero-run.png', { frameWidth: 65, frameHeight: 48 });
+        this.load.spritesheet('player', 'assets/player.png', { frameWidth: 192, frameHeight: 192 });
 
         // simple coin image
         //this.load.image('coin', 'assets/coinGold.png');
@@ -89,8 +81,8 @@ export class LoadScene extends Phaser.Scene {
 
 
         this.anims.create({
-            key: 'hero-attack',
-            frames: this.anims.generateFrameNumbers('hero-attack', { frames: [0,1,2,3,4,5]}),
+            key: 'player-attack',
+            frames: this.anims.generateFrameNumbers('player', { start: 15 , end: 19}),
             frameRate: 8,
             repeat: 0,
         });
@@ -98,27 +90,27 @@ export class LoadScene extends Phaser.Scene {
         this.anims.create({
             key: 'spin',
             frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 6 }),
-            frameRate: 16,
+            frameRate: 10,
             repeat: Phaser.FOREVER
         });
 
         this.anims.create({
-            key: 'hero-idle',
-            frames: this.anims.generateFrameNumbers('hero-idle', { start: 0, end: 3 }),
+            key: 'player-idle',
+            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),
             frameRate: 7,
             repeat: Phaser.FOREVER
         });
 
         this.anims.create({
-            key: 'hero-jump',
-            frames: this.anims.generateFrameNumbers('hero-jump', { start: 0, end: 4 }),
-            frameRate: 7,
+            key: 'player-jump',
+            frames: this.anims.generateFrameNumbers('player', { start: 20, end: 26 }),
+            frameRate: 10,
             repeat: 0
         });
 
         this.anims.create({
-            key: 'hero-run',
-            frames: this.anims.generateFrameNumbers('hero-run', { start: 0, end: 11 }),
+            key: 'player-run',
+            frames: this.anims.generateFrameNumbers('player', { start: 7, end: 14 }),
             frameRate: 12,
             repeat: Phaser.FOREVER
         });

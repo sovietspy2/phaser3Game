@@ -1,6 +1,7 @@
 import { CST } from "../CST";
 import Player from "../models/player";
 import {coinFactory} from "../helpers/coinHelper";
+import {teleporter} from "../helpers/teleporter";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -35,6 +36,7 @@ export class GameScene extends Phaser.Scene {
 
         // adding coins to the map
         coinFactory(this);
+        teleporter(this);
         
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
@@ -53,6 +55,8 @@ export class GameScene extends Phaser.Scene {
         });
         // fix the text to the camera
         this.text.setScrollFactor(0);
+
+        
     }
 
     update(time, delta) {
@@ -65,7 +69,7 @@ export class GameScene extends Phaser.Scene {
 
 
         // handling death
-        if (this.player.sprite.y > this.map.heightInPixels-20) {
+        if (this.player.sprite.y > this.map.heightInPixels-50) {
            //debugger;
            console.log("player destroyed, scene restarting . . . ")
            this.player.destroy();

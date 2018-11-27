@@ -9,15 +9,18 @@ export default class Player {
 
         // player creating
         this.score = 0;
-
+        this.isAttacking = false;
+        this.health = 100;
         // jumping state
         this.jumping = false;
 
         this.sprite = scene.physics.add
-            .sprite(spawnPoint.x,spawnPoint.y, "hero-idle", 0)
+            .sprite(spawnPoint.x,spawnPoint.y, "player", 0)
             .setDrag(1000,0)
             .setMaxVelocity(300,400)
-            .setSize(20,50) // hitbox size
+            .setScale(0.5)
+            .setSize(50,120) // hitbox size
+            .setOffset(70, 20)
             .setCollideWorldBounds(true);
 
         const { LEFT, RIGHT, UP, W, A, D , SPACE} = Phaser.Input.Keyboard.KeyCodes;
@@ -31,7 +34,7 @@ export default class Player {
             space: SPACE
         });
 
-        this.isAttacking = false;
+       
     }
 
     attack(sprite){
@@ -39,7 +42,7 @@ export default class Player {
       if (!this.isAttacking){
   
           //Play the "attack" animation
-          sprite.anims.play('hero-attack');
+          sprite.anims.play('player-attack');
           this.isAttacking = true;
 
           sprite.on('animationcomplete', () => {
@@ -64,16 +67,13 @@ export default class Player {
         if (keys.space.isDown) {
           this.attack(sprite);
           if (sprite.flipX) { // character facing left
-            //sprite.setOffset(50, 0);
           } else { // character facing right
-            //sprite.setOffset(30, 0);
           }
           console.log("attacking");
           // Phaser.Math.Distance.Between() this is gonna calculate wheter it huts something or not
           return;
         }
 
-        //debugger;
         // Apply horizontal acceleration when left/a or right/d are applied
         if (keys.left.isDown || keys.a.isDown) {
           sprite.setAccelerationX(-acceleration);
@@ -81,46 +81,29 @@ export default class Player {
           // we can just mirror the sprite.
           sprite.setFlipX(true);
           
-          if (onGround) {
-            //this.sprite.setOffset(20, 0);
-          }
+  
           
         } else if (keys.right.isDown || keys.d.isDown) {
           sprite.setAccelerationX(acceleration);
           sprite.setFlipX(false); // RIGHT
-          if (onGround) {
-            //sprite.setOffset(25, 0);
-          }
+          
          
         } else {
           sprite.setAccelerationX(0);
-          if (sprite.flipX) {
-            //left
-            //sprite.setOffset(70, 0);  
-          } else {
-            // right
-            //sprite.setOffset(30, 0);  
-          }
            
         }
     
         // Only allow the player to jump if they are on the ground
-      
     
         // Update the animation/texture based on the state of the player
         if (onGround) {
           if ((keys.up.isDown || keys.w.isDown)) {
             sprite.setVelocityY(-500);
-            if (sprite.flipX) { // RIGHT
-              //sprite.setOffset(10, 10);
-            } else { // LEFT
-              //sprite.setOffset(30, 10);
-            }
-            sprite.anims.play("hero-jump", true);
+            sprite.anims.play("player-jump", true);
           } else if (sprite.body.velocity.x !== 0) {
-            sprite.anims.play("hero-run", true);
+            sprite.anims.play("player-run", true);
           } else {
-            sprite.anims.play("hero-idle", true);
+            sprite.anims.play("player-idle", true);
             //sprite.setOffset(10, 0);
           }
         }
