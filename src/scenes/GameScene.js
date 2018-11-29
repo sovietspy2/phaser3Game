@@ -3,6 +3,7 @@ import Player from "../models/player";
 import {coinFactory} from "../helpers/coinHelper";
 import {teleporter} from "../helpers/teleporter";
 import Creature from "../models/creature";
+import Slime from "../models/slime";
 
 
 
@@ -43,10 +44,47 @@ export class GameScene extends Phaser.Scene {
         
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
-        this.slime = new Creature(this, "slime", 0, "slime", 200, 700);
+        let locations = [ {x:200, y:200}, {x:400,y:400}];
 
-        this.physics.add.collider(this.slime.sprite, this.groundLayer);
-        this.physics.add.collider(this.slime.sprite, this.player.sprite);
+
+        this.slimes = this.physics.add.group();
+        locations.forEach( (location)=>{
+            let slime = new Slime({scene:this, x: location.x, y: location.y, key:"slime"});
+            slime = this.physics.add.existing(slime);
+            debugger;
+            console.log(slime);
+            slime.setDrag(1000,0)
+            .setMaxVelocity(300,400)
+            .setScale(0.5)
+            .setScale(2)
+            .setSize(13,13) // hitbox size
+            .setOffset(10, 20)
+            .setCollideWorldBounds(true);
+          this.slimes.add(slime);
+            
+           
+        }); 
+
+        this.slimes.children.iterate(function (slime) {
+
+           //slime.setDrag(1000,0)
+           //.setMaxVelocity(300,400)
+           //.setScale(0.5)
+           //.setScale(2)
+           //.setSize(13,13) // hitbox size
+           //.setOffset(10, 20)
+          // .setCollideWorldBounds(true);
+
+        });
+
+        
+
+
+        //let config = {scene: this, x: 200, y:200, key:"slime"};
+        //this.slime = new Slime(config);
+
+        this.physics.add.collider(this.slimes, this.groundLayer);
+        this.physics.add.collider(this.slimes, this.player.sprite);
         
         
         // set bounds so the camera won't go outside the game world
@@ -72,10 +110,17 @@ export class GameScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+
+        this.slimes.children.iterate(function (slime) {
+           // if (slime.health>0) {
+                slime.update(time,delta);
+            //} 
+         });
+
         
         this.text.setText(this.player.score);
 
-        this.slime.update()
+        
         //this.physics.moveToObject(this.slime.sprite,this.player.sprite);
 
         // update player stuff
