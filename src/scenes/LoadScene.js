@@ -66,7 +66,7 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet('hero-run', 'assets/hero-run.png', { frameWidth: 65, frameHeight: 48 });
         this.load.spritesheet('player', 'assets/player.png', { frameWidth: 192, frameHeight: 192 });
 
-        this.load.spritesheet('slime', 'assets/slime.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('slime', 'assets/slime.png', { frameWidth: 32, frameHeight: 33 });
 
 
         // simple coin image
@@ -86,8 +86,15 @@ export class LoadScene extends Phaser.Scene {
         this.anims.create({
             key: 'slime',
             frames: this.anims.generateFrameNumbers('slime', { start: 0 , end: 20}),
-            frameRate: 7,
+            frameRate: 10,
             repeat: Phaser.FOREVER,
+        });
+
+        this.anims.create({
+            key: 'slime-die',
+            frames: this.anims.generateFrameNumbers('slime', { start: 41 , end: 50}),
+            frameRate: 5,
+            repeat: 0,
         });
 
         this.anims.create({

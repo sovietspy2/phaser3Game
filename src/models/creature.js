@@ -3,17 +3,41 @@ export default class Creature {
         this.scene = scene;
         this.isAttacking = false;
         this.health = 100;
+        this.takesDamage = true;
+        
 
         this.sprite = scene.physics.add
             .sprite(x, y, spriteName, spriteStartFrame)
-            //.setDrag(1000,0)
-            //.setMaxVelocity(300,400)
+            .setDrag(1000,0)
+            .setMaxVelocity(300,400)
             //.setScale(0.5)
-            //.setSize(100,100) // hitbox size
-            //.setOffset(70, 20)
+            .setScale(2)
+            .setSize(13,13) // hitbox size
+            .setOffset(10, 20)
             .setCollideWorldBounds(true);
 
-        this.sprite.anims.play(animName)
+        this.sprite.anims.play("slime-die");
+
+        scene.physics.add.overlap(this.scene.player.sword, this.sprite, this.takeDamage, null,this)
+
+
+    }
+
+    takeDamage() {
+        if (this.takesDamage) {
+            this.scene.time.delayedCall(1000, this.setTakesDamageTrue, [], this);  // delay in
+            this.takesDamage=false;
+            this.sprite.setTint(0xff0000);
+            console.log("ouch u hit me");
+            this.scene.player.sword.body.active = false;
+            this.health -= 50;
+        }
+    }
+
+    setTakesDamageTrue() {
+        console.log("ready to get hurt again :(");
+        this.takesDamage = true;
+        this.sprite.clearTint();
     }
 
     attack() { }
@@ -51,9 +75,29 @@ export default class Creature {
         } else {
             this.sprite.setAccelerationX(0);
         }
+
+
+        if (this.health<=0) {
+            this.die();
+        }
+
+    }
+
+    die() {
+        console.log("Im slime and im dead :(")
+        this.sprite.setAccelerationX(0);
+        this.sprite.setVelocityY(0);
+        debugger;
+        this.sprite.anims.play('slime-die');
+        this.sprite.on("animationcomplete", ()=> {
+            this.destroy();
+            this.sprite.setFrame(50);
+            debugger;
+            this.sprite;
+        })
     }
 
     destroy() {
-        this.sprite.destroy();
+        //this.sprite.destroy();
     }
 }
