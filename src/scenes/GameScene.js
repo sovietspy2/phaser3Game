@@ -4,6 +4,8 @@ import {coinFactory} from "../helpers/coinHelper";
 import {teleporter} from "../helpers/teleporter";
 import Creature from "../models/creature";
 
+
+
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({
@@ -63,6 +65,9 @@ export class GameScene extends Phaser.Scene {
         // fix the text to the camera
         this.text.setScrollFactor(0);
 
+    
+
+        
         
     }
 

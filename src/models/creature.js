@@ -1,11 +1,11 @@
 export default class Creature {
-    constructor(scene,spriteName, spriteStartFrame, animName,x,y) {
+    constructor(scene, spriteName, spriteStartFrame, animName, x, y) {
         this.scene = scene;
         this.isAttacking = false;
         this.health = 100;
 
         this.sprite = scene.physics.add
-            .sprite(x,y, spriteName, spriteStartFrame)
+            .sprite(x, y, spriteName, spriteStartFrame)
             //.setDrag(1000,0)
             //.setMaxVelocity(300,400)
             //.setScale(0.5)
@@ -16,38 +16,41 @@ export default class Creature {
         this.sprite.anims.play(animName)
     }
 
-    attack() {}
+    attack() { }
 
-    idle() {}
+    idle() { }
 
     update() {
-        console.log(this.sprite.x)
 
         const onGround = this.sprite.body.blocked.down;
 
         //this.scene.physics.moveTo(this.sprite,this.scene.player.sprite.x, this.sprite.y);
 
-        const spriteX = this.sprite.x ;
+        const spriteX = this.sprite.x;
         const playerX = this.scene.player.sprite.x;
 
-        const distance = Math.sqrt(Math.pow((Math.abs(spriteX - playerX)),2));
-        console.log(distance);
+        const distance = Math.sqrt(Math.pow((Math.abs(spriteX - playerX)), 2));
 
-        if (this.sprite.x > this.scene.player.sprite.x) {
+        if (distance < 400) {
 
-            if (onGround && distance<300) {
-                this.sprite.setVelocityY(-500);
-                
+            if (this.sprite.x > this.scene.player.sprite.x) {
+
+                if (onGround && distance < 300) {
+                    this.sprite.setVelocityY(-500);
+
+                }
+                this.sprite.setAccelerationX(-30);
+            } else {
+                if (onGround && distance < 300) {
+                    this.sprite.setVelocityY(-500);
+
+                }
+                this.sprite.setAccelerationX(30);
             }
-            this.sprite.setAccelerationX(-30);
+
         } else {
-            if (onGround && distance<300) {
-                this.sprite.setVelocityY(-500);
-               
-            }
-            this.sprite.setAccelerationX(30);
-        } 
-        
+            this.sprite.setAccelerationX(0);
+        }
     }
 
     destroy() {

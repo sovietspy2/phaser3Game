@@ -1,3 +1,5 @@
+import HealthBar from "../helpers/healthbar";
+
 export default class Player {
     constructor(scene) {
         this.scene = scene;
@@ -32,6 +34,7 @@ export default class Player {
             space: SPACE
         });
 
+        this.healthbar = new HealthBar(scene, 20,20);
        
     }
 
@@ -42,6 +45,7 @@ export default class Player {
           //Play the "attack" animation
           sprite.anims.play('player-attack');
           this.isAttacking = true;
+          this.healthbar.value = this.healthbar.value -10;
 
           sprite.on('animationcomplete', () => {
             this.isAttacking = false;
@@ -52,12 +56,17 @@ export default class Player {
 
     update() {
 
+        this.healthbar.update();
+
         const keys = this.keys;
         const sprite = this.sprite;
         const onGround = sprite.body.blocked.down;
         const acceleration = onGround ? 600 : 200;
 
         
+        
+
+
         if (this.isAttacking) {
           return;
         }
@@ -105,6 +114,9 @@ export default class Player {
             //sprite.setOffset(10, 0);
           }
         }
+
+        //this.scene.healthbar.value = this.health;
+
       }
 
       destroy() {
