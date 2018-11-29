@@ -11,8 +11,6 @@ export default class Player {
         this.score = 0;
         this.isAttacking = false;
         this.health = 100;
-        // jumping state
-        this.jumping = false;
 
         this.sprite = scene.physics.add
             .sprite(spawnPoint.x,spawnPoint.y, "player", 0)
@@ -109,47 +107,6 @@ export default class Player {
         }
       }
 
-      setPlayerOffset(running , facing, jumping, attacking) {
-               if (running && facing == "right" && jumping && attacking) {
-
-        } else if (running && facing == "right" && jumping && !attacking) {
-
-        } else if (running && facing == "right" && !jumping && attacking) {
-
-        } else if (running && facing == "right" && !jumping && !attacking) {
-
-        } else if (running && facing == "left" && jumping && attacking) {
-
-        } else if (running && facing == "left" && jumping && !attacking) {
-
-          } else if (running && facing == "left" && !jumping && attacking) {
-  
-          } else if (running && facing == "left" && !jumping && !attacking) {
-
-          } else if (!running && facing == "left" && jumping && attacking) {
-
-          } else if (!running && facing == "left" && jumping && !attacking) {
-  
-            } else if (!running && facing == "left" && !jumping && attacking) {
-    
-            } else if (!running && facing == "left" && !jumping && !attacking) {
-  
-          } else if (!running && facing == "right" && jumping && attacking) {
-
-          } else if (!running && facing == "right" && jumping && !attacking) {
-  
-            } else if (!running && facing == "right" && !jumping && attacking) {
-    
-            } else if (!running && facing == "right" && !jumping && !attacking) {
-
-
-      }
-    }
-
-      setJumpingFalse() {
-        this.jumping = false;
-      }
-    
       destroy() {
         this.sprite.destroy();
       }

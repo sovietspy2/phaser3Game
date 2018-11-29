@@ -2,6 +2,7 @@ import { CST } from "../CST";
 import Player from "../models/player";
 import {coinFactory} from "../helpers/coinHelper";
 import {teleporter} from "../helpers/teleporter";
+import Creature from "../models/creature";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -40,6 +41,12 @@ export class GameScene extends Phaser.Scene {
         
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
+        this.slime = new Creature(this, "slime", 0, "slime", 200, 700);
+
+        this.physics.add.collider(this.slime.sprite, this.groundLayer);
+        this.physics.add.collider(this.slime.sprite, this.player.sprite);
+        
+        
         // set bounds so the camera won't go outside the game world
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         // make the camera follow the player
@@ -63,6 +70,8 @@ export class GameScene extends Phaser.Scene {
         
         this.text.setText(this.player.score);
 
+        this.slime.update()
+        //this.physics.moveToObject(this.slime.sprite,this.player.sprite);
 
         // update player stuff
         this.player.update();

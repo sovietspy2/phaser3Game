@@ -66,6 +66,9 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet('hero-run', 'assets/hero-run.png', { frameWidth: 65, frameHeight: 48 });
         this.load.spritesheet('player', 'assets/player.png', { frameWidth: 192, frameHeight: 192 });
 
+        this.load.spritesheet('slime', 'assets/slime.png', { frameWidth: 32, frameHeight: 32 });
+
+
         // simple coin image
         //this.load.image('coin', 'assets/coinGold.png');
         // player animations
@@ -79,6 +82,13 @@ export class LoadScene extends Phaser.Scene {
     create() {
         console.log("LOAD SCENE CREATE FUNCTION START ");
 
+
+        this.anims.create({
+            key: 'slime',
+            frames: this.anims.generateFrameNumbers('slime', { start: 0 , end: 20}),
+            frameRate: 7,
+            repeat: Phaser.FOREVER,
+        });
 
         this.anims.create({
             key: 'player-attack',
