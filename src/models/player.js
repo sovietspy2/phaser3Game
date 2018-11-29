@@ -14,6 +14,14 @@ export default class Player {
         this.isAttacking = false;
         this.health = 100;
 
+        this.sword = scene.physics.add
+        .sprite(spawnPoint.x, spawnPoint.y, "", 0)
+        .setSize(60,70)
+        .setVisible(false);
+        this.sword.body.allowGravity=false;
+        this.sword.body.checkCollision.none = true;
+
+
         this.sprite = scene.physics.add
             .sprite(spawnPoint.x,spawnPoint.y, "player", 0)
             .setDrag(1000,0)
@@ -45,14 +53,37 @@ export default class Player {
           //Play the "attack" animation
           sprite.anims.play('player-attack');
           this.isAttacking = true;
-          this.healthbar.value = this.healthbar.value -10;
+          //this.healthbar.value = this.healthbar.value -10;
+          
+          if (sprite.flipX) {
+            this.sword.x = sprite.x-35;
+            this.sword.y = sprite.y;
+            this.setSwordActive();
+          } else {
+            this.sword.x = sprite.x+35;
+            this.sword.y = sprite.y;
+            this.setSwordActive();
+          }
+         
 
           sprite.on('animationcomplete', () => {
             this.isAttacking = false;
+            this.setSwordInactive();
         });
+
+        
           
       }
   }
+
+  setSwordActive() {
+    this.sword.body.checkCollision.none = false;
+  }
+
+  setSwordInactive() {
+    this.sword.body.checkCollision.none = true;
+  }
+
 
     update() {
 
