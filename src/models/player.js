@@ -47,12 +47,12 @@ export default class Player {
     }
 
     attack(sprite){
+      this.isAttacking = true;
       //We use a boolean var to check if the player is currently attacking to prevent a new attack mid animation.
-      if (!this.isAttacking){
   
           //Play the "attack" animation
           sprite.anims.play('player-attack');
-          this.isAttacking = true;
+          
           //this.healthbar.value = this.healthbar.value -10;
           
           if (sprite.flipX) {
@@ -65,15 +65,17 @@ export default class Player {
             this.setSwordActive();
           }
          
-          this.scene.time.delayedCall(100, this.setSwordInactive, [], this);  // delay in
-          //sprite.on('animationcomplete', () => { this is temporary chanegd for timer because it takes too much time
-            //this.isAttacking = false;
-            //this.setSwordInactive();
-        //});
+          this.scene.time.delayedCall(500, this.setSwordInactive, [], this);  // delay in
 
-        
-          
-      }
+          sprite.once('animationcomplete', () => { //this is temporary chanegd for timer because it takes too much time
+            sprite.anims.play('player-idle');
+            //this.isAttacking = false;
+            //console.log("PLAYER: attack anmation compelte READY to attack again")
+        });
+
+        this.scene.time.delayedCall(1200, ()=>{
+          this.isAttacking = false;
+        }, [], this);  // delay in
   }
 
   enemyCollider(group) {
@@ -97,14 +99,12 @@ export default class Player {
   }
 
   setSwordActive() {
-
-    console.log("sword active");
+    console.log("SWORD BODY ACTIVE");
     this.sword.body.checkCollision.none = false;
   }
 
   setSwordInactive() {
-    console.log("Sword inatctive");
-    this.isAttacking = false;
+    console.log("SWORD BODY INACTIVE");
     this.sword.body.checkCollision.none = true;
   }
 
@@ -118,58 +118,48 @@ export default class Player {
         const onGround = sprite.body.blocked.down;
         const acceleration = onGround ? 600 : 200;
 
-        
-        
 
-
-        if (this.isAttacking) {
-          return;
-        }
-
-        if (keys.space.isDown) {
-          this.attack(sprite);
-          if (sprite.flipX) { // character facing left
-          } else { // character facing right
-          }
-          console.log("attacking");
-          // Phaser.Math.Distance.Between() this is gonna calculate wheter it huts something or not
-          return;
-        }
-
-        // Apply horizontal acceleration when left/a or right/d are applied
+       
         if (keys.left.isDown || keys.a.isDown) {
           sprite.setAccelerationX(-acceleration);
-          // No need to have a separate set of graphics for running to the left & to the right. Instead
-          // we can just mirror the sprite.
           sprite.setFlipX(true);
-          
-  
           
         } else if (keys.right.isDown || keys.d.isDown) {
           sprite.setAccelerationX(acceleration);
           sprite.setFlipX(false); // RIGHT
-          
-         
+        
         } else {
           sprite.setAccelerationX(0);
-           
         }
     
-        // Only allow the player to jump if they are on the ground
-    
-        // Update the animation/texture based on the state of the player
         if (onGround) {
           if ((keys.up.isDown || keys.w.isDown)) {
             sprite.setVelocityY(-500);
-            sprite.anims.play("player-jump", true);
+            if (this.sprite.anims.getCurrentKey() != "player-attack") {
+              sprite.anims.play("player-jump", true);
+            }
+            
           } else if (sprite.body.velocity.x !== 0) {
-            sprite.anims.play("player-run", true);
+            if (this.sprite.anims.getCurrentKey() != "player-attack") {
+              sprite.anims.play("player-run", true);
+            }
           } else {
-            sprite.anims.play("player-idle", true);
-            //sprite.setOffset(10, 0);
+            if (this.sprite.anims.getCurrentKey() != "player-attack") {
+              sprite.anims.play("player-idle", true);
+            }
           }
         }
 
+        if (keys.space.isDown) {
+          if (!this.isAttacking) {
+            this.attack(sprite);
+            console.log("ATTACKING BECAUSE ISATTACKING IS FALSE");
+            // Phaser.Math.Distance.Between() this is gonna calculate wheter it huts something or not
+          }
+        }
+
+        
+ 
         //this.scene.healthbar.value = this.health;
 
       }
