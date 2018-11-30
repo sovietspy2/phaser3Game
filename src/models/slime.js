@@ -35,6 +35,7 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
             this.setTint(0xff0000);
             console.log("ouch u hit me");
             this.health -= 50;
+            this.knockedBack();
         }
     }
 
@@ -42,58 +43,69 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
         console.log("ready to get hurt again :(");
         this.takesDamage = true;
         this.clearTint();
+        this.setAccelerationX(0);
     }
 
     update(time,delta) {
+        if (!this.dead) {
 
-        const onGround = this.body.blocked.down;
+
+            const onGround = this.body.blocked.down;
 
         
 
-        //this.scene.physics.moveTo(this.sprite,this.scene.player.sprite.x, this.sprite.y);
-
-        const spriteX = this.x;
-        const playerX = this.scene.player.sprite.x;
-
-        const distance = Math.sqrt(Math.pow((Math.abs(spriteX - playerX)), 2));
-
-        if (distance < 400) {
-
-            if (this.x > this.scene.player.sprite.x) {
-
-                if (onGround && distance < 300) {
-                    this.setVelocityY(-500);
-
+            //this.scene.physics.moveTo(this.sprite,this.scene.player.sprite.x, this.sprite.y);
+    
+            const spriteX = this.x;
+            const playerX = this.scene.player.sprite.x;
+    
+            const distance = Math.sqrt(Math.pow((Math.abs(spriteX - playerX)), 2));
+    
+            if (distance < 400 && this.takesDamage) {
+    
+                if (this.x > this.scene.player.sprite.x) {
+    
+                    if (onGround && distance < 300) {
+                        this.setVelocityY(-500);
+    
+                    }
+                    this.setAccelerationX(-30);
+                } else {
+                    if (onGround && distance < 300) {
+                        this.setVelocityY(-500);
+    
+                    }
+                    this.setAccelerationX(30);
                 }
-                this.setAccelerationX(-30);
-            } else {
-                if (onGround && distance < 300) {
-                    this.setVelocityY(-500);
-
-                }
-                this.setAccelerationX(30);
+    
+            } else if (this.takesDamage){
+                this.setAccelerationX(0);
+            }
+    
+            if (this.health<=0) {
+                debugger;
+                this.die();
             }
 
-        } else {
-            this.setAccelerationX(0);
+           
+    
         }
 
-        if (this.health<=0) {
-            debugger;
-            this.die();
-        }
-
+   
     }
 
     die() {
         if (!this.dead) {
             this.dead = true;
+            this.setOffset(10,15) // perfect
             //this.clearTint();
             console.log("Im slime and im dead :(")
-            this.setAccelerationX(0);
-            this.setVelocityY(0);
+            //this.setAccelerationX(0);
+            //this.setVelocityY(0);
             this.anims.remove("slime");
             this.anims.play('slime-die');
+            this.setMass(500);
+            this.setBounce(0);
             this.on("animationcomplete", ()=> {
                 this.destroy();
                 this.visible=false;
@@ -101,6 +113,12 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
                 
             });
         }
+    }
+
+    knockedBack() {
+        let acc = this.scene.player.sprite.x < this.x ? 300 : -300;
+        this.setVelocityY(-500);
+        this.setAccelerationX(acc);
     }
 
 }
