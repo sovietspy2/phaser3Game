@@ -1,10 +1,12 @@
+import { throws } from "assert";
+
 export default class Slime extends Phaser.Physics.Arcade.Sprite{
     constructor(config) {
 
         super(config.scene, config.x, config.y, config.key,0);
 
 
-
+        this.dead = false;
         this.scene = config.scene;
 
         this.scene.sys.displayList.add(this);
@@ -85,13 +87,21 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
     }
 
     die() {
-        debugger;
-        console.log("Im slime and im dead :(")
-        this.setAccelerationX(0);
-        this.setVelocityY(0);
-        this.anims.play('slime-die');
-        this.on("animationcomplete", ()=> {
-            this.destroy();
-        })
+        if (!this.dead) {
+            this.dead = true;
+            //this.clearTint();
+            console.log("Im slime and im dead :(")
+            this.setAccelerationX(0);
+            this.setVelocityY(0);
+            this.anims.remove("slime");
+            this.anims.play('slime-die');
+            this.on("animationcomplete", ()=> {
+                this.destroy();
+                this.visible=false;
+                this.setFrame(9);
+                
+            });
+        }
     }
+
 }

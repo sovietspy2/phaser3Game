@@ -92,7 +92,7 @@ export class LoadScene extends Phaser.Scene {
 
         this.anims.create({
             key: 'slime-die',
-            frames: this.anims.generateFrameNumbers('slime', { start: 41 , end: 50}),
+            frames: this.anims.generateFrameNumbers('slime', { start: 41 , end: 49}),
             frameRate: 5,
             repeat: 0,
         });
