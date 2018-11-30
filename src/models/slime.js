@@ -19,7 +19,9 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
         
         this.anims.play("slime");
 
-        this.scene.physics.add.overlap(this.scene.player.sword, this, this.takeDamage, null,this)
+        this.scene.physics.add.overlap(this.scene.player.sword, this, this.takeDamage, null,this);
+
+        this.scene.physics.add.overlap(this.scene.player.sprite, this, this.knockedBack, null,this); // Might not need this
 
     }
 
@@ -117,7 +119,7 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
 
     knockedBack() {
         let acc = this.scene.player.sprite.x < this.x ? 300 : -300;
-        this.setVelocityY(-500);
+        this.setVelocityY(-100);
         this.setAccelerationX(acc);
     }
 

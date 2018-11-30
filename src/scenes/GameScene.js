@@ -4,6 +4,7 @@ import {coinFactory} from "../helpers/coinHelper";
 import {teleporter} from "../helpers/teleporter";
 import Creature from "../models/creature";
 import Slime from "../models/slime";
+import potionFactory from "../helpers/potionFactory";
 
 
 
@@ -41,8 +42,11 @@ export class GameScene extends Phaser.Scene {
         // adding coins to the map
         coinFactory(this);
         teleporter(this);
+        potionFactory(this);
         
         this.physics.add.collider(this.player.sprite, this.groundLayer);
+
+    
 
         let locations = [ {x:200, y:200}, {x:400,y:400}, {x:500, y:500}];
 
