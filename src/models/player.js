@@ -12,7 +12,7 @@ export default class Player {
         // player creating
         this.score = 0;
         this.isAttacking = false;
-        this.health = 100;
+        this.invincible = false;
 
         this.sword = scene.physics.add
         .sprite(spawnPoint.x, spawnPoint.y, "", 0)
@@ -65,22 +65,46 @@ export default class Player {
             this.setSwordActive();
           }
          
-
-          sprite.on('animationcomplete', () => {
-            this.isAttacking = false;
-            this.setSwordInactive();
-        });
+          this.scene.time.delayedCall(100, this.setSwordInactive, [], this);  // delay in
+          //sprite.on('animationcomplete', () => { this is temporary chanegd for timer because it takes too much time
+            //this.isAttacking = false;
+            //this.setSwordInactive();
+        //});
 
         
           
       }
   }
 
+  enemyCollider(group) {
+   
+    //this.scene.physics.add.collider(this.scene.player.sprite, group)
+    this.scene.physics.add.overlap(this.scene.player.sprite, group, this.takeDamage, null,this)
+  }
+
+  takeDamage() {
+    if (!this.invincible) {
+      this.invincible = true;
+      this.sprite.setTint(0xff0000);
+      //console.log("ENEMY COLLIDE")
+      this.healthbar.value -= 20;
+      this.scene.time.delayedCall(300, () =>{
+        this.invincible=false;
+        this.sprite.clearTint();
+      }  ,[], this);
+      ///this.scene.time.delayedCall(150, this.test, ["test"], this); this is how args work
+    }
+  }
+
   setSwordActive() {
+
+    console.log("sword active");
     this.sword.body.checkCollision.none = false;
   }
 
   setSwordInactive() {
+    console.log("Sword inatctive");
+    this.isAttacking = false;
     this.sword.body.checkCollision.none = true;
   }
 

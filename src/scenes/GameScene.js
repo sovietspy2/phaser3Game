@@ -44,7 +44,7 @@ export class GameScene extends Phaser.Scene {
         
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
-        let locations = [ {x:200, y:200}, {x:400,y:400}];
+        let locations = [ {x:200, y:200}, {x:400,y:400}, {x:500, y:500}];
 
 
         this.slimes = this.physics.add.group();
@@ -67,13 +67,7 @@ export class GameScene extends Phaser.Scene {
 
         this.slimes.children.iterate(function (slime) {
 
-           //slime.setDrag(1000,0)
-           //.setMaxVelocity(300,400)
-           //.setScale(0.5)
-           //.setScale(2)
-           //.setSize(13,13) // hitbox size
-           //.setOffset(10, 20)
-          // .setCollideWorldBounds(true);
+            slime.setCollideWorldBounds(true);
 
         });
 
@@ -84,7 +78,8 @@ export class GameScene extends Phaser.Scene {
         //this.slime = new Slime(config);
 
         this.physics.add.collider(this.slimes, this.groundLayer);
-        this.physics.add.collider(this.slimes, this.player.sprite);
+        //this.physics.add.collider(this.slimes, this.player.sprite);
+        this.player.enemyCollider(this.slimes);
         
         
         // set bounds so the camera won't go outside the game world
