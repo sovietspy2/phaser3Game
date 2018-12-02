@@ -42,7 +42,7 @@ export default class Player {
             space: SPACE
         });
 
-        this.healthbar = new HealthBar(scene, 20,20);
+        this.healthBar = new HealthBar(scene, 20,20);
        
     }
 
@@ -89,7 +89,7 @@ export default class Player {
       this.invincible = true;
       this.sprite.setTint(0xff0000);
       //console.log("ENEMY COLLIDE")
-      this.healthbar.value -= 20;
+      this.healthBar.value -= 20;
       this.scene.time.delayedCall(300, () =>{
         this.invincible=false;
         this.sprite.clearTint();
@@ -111,7 +111,7 @@ export default class Player {
 
     update() {
 
-        this.healthbar.update();
+        this.healthBar.update();
 
         const keys = this.keys;
         const sprite = this.sprite;
