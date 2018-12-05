@@ -22,7 +22,7 @@ export class GameScene extends Phaser.Scene {
 
         this.groundLayer3 = this.map.createDynamicLayer('Background', tiles,0,0);
         this.groundLayer = this.map.createStaticLayer('World', tiles,0,0);
-        this.map.setCollisionByProperty({collides: true});
+        
         this.groundLayer2 = this.map.createStaticLayer('Lamps', tiles,0,0);
         this.layer1 = this.map.createStaticLayer('Flooring', tiles,0,0);
         this.groundLayer5 = this.map.createStaticLayer('Props', tiles,0,0);
@@ -30,6 +30,7 @@ export class GameScene extends Phaser.Scene {
 
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
+        this.groundLayer.setCollisionByProperty({collides: true});
 
         // create the player sprite
         this.player = new Player(this);
