@@ -6,8 +6,6 @@ import Creature from "../models/creature";
 import Slime from "../models/slime";
 import potionFactory from "../helpers/potionFactory";
 
-
-
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({
@@ -16,15 +14,12 @@ export class GameScene extends Phaser.Scene {
 
     }
 
-
-
-
     create() {
         console.log("GAME SCENE CREATE START");
 
         this.map = this.make.tilemap({ key: 'map' });
         var tiles = this.map.addTilesetImage('MapDetails','tiles');
-        
+
         this.groundLayer3 = this.map.createDynamicLayer('Background', tiles,0,0);
         this.groundLayer = this.map.createStaticLayer('World', tiles,0,0);
         this.map.setCollisionByProperty({collides: true});
@@ -36,20 +31,17 @@ export class GameScene extends Phaser.Scene {
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
 
-        // create the player sprite    
+        // create the player sprite
         this.player = new Player(this);
 
         // adding coins to the map
         coinFactory(this);
         teleporter(this);
         potionFactory(this);
-        
+
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
-    
-
         let locations = [ {x:200, y:200}, {x:400,y:400}, {x:500, y:500}];
-
 
         this.slimes = this.physics.add.group();
         locations.forEach( (location)=>{
@@ -65,17 +57,13 @@ export class GameScene extends Phaser.Scene {
             .setOffset(10, 20)
             .setCollideWorldBounds(true);
           this.slimes.add(slime);
-            
-           
-        }); 
+        });
 
         this.slimes.children.iterate(function (slime) {
 
             slime.setCollideWorldBounds(true);
 
         });
-
-        
 
 
         //let config = {scene: this, x: 200, y:200, key:"slime"};
@@ -84,14 +72,13 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.slimes, this.groundLayer);
         //this.physics.add.collider(this.slimes, this.player.sprite);
         this.player.enemyCollider(this.slimes);
-        
-        
+
         // set bounds so the camera won't go outside the game world
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         // make the camera follow the player
         this.cameras.main.startFollow(this.player.sprite);
 
-        // set background color, so the sky is not black    
+        // set background color, so the sky is not black
         this.cameras.main.setBackgroundColor('#ccccff');
 
         // this text will show the score
@@ -102,10 +89,6 @@ export class GameScene extends Phaser.Scene {
         // fix the text to the camera
         this.text.setScrollFactor(0);
 
-    
-
-        
-        
     }
 
     update(time, delta) {
@@ -113,19 +96,15 @@ export class GameScene extends Phaser.Scene {
         this.slimes.children.iterate(function (slime) {
            // if (slime.health>0) {
                 slime.update(time,delta);
-            //} 
+            //}
          });
-
-        
         this.text.setText(this.player.score);
 
-        
         //this.physics.moveToObject(this.slime.sprite,this.player.sprite);
 
         // update player stuff
         this.player.update();
-
-
+        
         // handling death
         if (this.player.sprite.y > this.map.heightInPixels-50) {
            //debugger;

@@ -43,18 +43,17 @@ export default class Player {
         });
 
         this.healthBar = new HealthBar(scene, 20,20);
-       
     }
 
     attack(sprite){
       this.isAttacking = true;
       //We use a boolean var to check if the player is currently attacking to prevent a new attack mid animation.
-  
+
           //Play the "attack" animation
           sprite.anims.play('player-attack');
-          
+
           //this.healthbar.value = this.healthbar.value -10;
-          
+
           if (sprite.flipX) {
             this.sword.x = sprite.x-35;
             this.sword.y = sprite.y;
@@ -64,7 +63,7 @@ export default class Player {
             this.sword.y = sprite.y;
             this.setSwordActive();
           }
-         
+
           this.scene.time.delayedCall(500, this.setSwordInactive, [], this);  // delay in
 
           sprite.once('animationcomplete', () => { //this is temporary chanegd for timer because it takes too much time
@@ -79,7 +78,7 @@ export default class Player {
   }
 
   enemyCollider(group) {
-   
+
     //this.scene.physics.add.collider(this.scene.player.sprite, group)
     this.scene.physics.add.overlap(this.scene.player.sprite, group, this.takeDamage, null,this)
   }
@@ -107,8 +106,6 @@ export default class Player {
     console.log("SWORD BODY INACTIVE");
     this.sword.body.checkCollision.none = true;
   }
-
-
     update() {
 
         this.healthBar.update();
@@ -119,26 +116,26 @@ export default class Player {
         const acceleration = onGround ? 600 : 200;
 
 
-       
+
         if (keys.left.isDown || keys.a.isDown) {
           sprite.setAccelerationX(-acceleration);
           sprite.setFlipX(true);
-          
+
         } else if (keys.right.isDown || keys.d.isDown) {
           sprite.setAccelerationX(acceleration);
           sprite.setFlipX(false); // RIGHT
-        
+
         } else {
           sprite.setAccelerationX(0);
         }
-    
+
         if (onGround) {
           if ((keys.up.isDown || keys.w.isDown)) {
             sprite.setVelocityY(-500);
             if (this.sprite.anims.getCurrentKey() != "player-attack") {
               sprite.anims.play("player-jump", true);
             }
-            
+
           } else if (sprite.body.velocity.x !== 0) {
             if (this.sprite.anims.getCurrentKey() != "player-attack") {
               sprite.anims.play("player-run", true);
@@ -157,16 +154,9 @@ export default class Player {
             // Phaser.Math.Distance.Between() this is gonna calculate wheter it huts something or not
           }
         }
-
-        
- 
-        //this.scene.healthbar.value = this.health;
-
       }
 
       destroy() {
         this.sprite.destroy();
       }
-
-
 }

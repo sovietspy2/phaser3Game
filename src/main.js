@@ -16,7 +16,6 @@ let game = new Phaser.Game({
                arcade: {
                     gravity: { y: 1000 },
                     debug: true
-
                 }
             },
             scene: [
@@ -26,5 +25,3 @@ let game = new Phaser.Game({
             ],
             parent: "game"
 });
-
-

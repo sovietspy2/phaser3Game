@@ -5,7 +5,6 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
 
         super(config.scene, config.x, config.y, config.key,0);
 
-
         this.dead = false;
         this.scene = config.scene;
 
@@ -16,17 +15,13 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
 
         this.health = 100;
         this.takesDamage = true;
-        
+
         this.anims.play("slime");
 
         this.scene.physics.add.overlap(this.scene.player.sword, this, this.takeDamage, null,this);
 
         this.scene.physics.add.overlap(this.scene.player.sprite, this, this.knockedBack, null,this); // Might not need this
 
-    }
-
-    init() {
-       // FUCK
     }
 
     takeDamage() {
@@ -50,50 +45,39 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
 
     update(time,delta) {
         if (!this.dead) {
-
-
             const onGround = this.body.blocked.down;
 
-        
-
             //this.scene.physics.moveTo(this.sprite,this.scene.player.sprite.x, this.sprite.y);
-    
             const spriteX = this.x;
             const playerX = this.scene.player.sprite.x;
-    
+
             const distance = Math.sqrt(Math.pow((Math.abs(spriteX - playerX)), 2));
-    
+
             if (distance < 400 && this.takesDamage) {
-    
+
                 if (this.x > this.scene.player.sprite.x) {
-    
+
                     if (onGround && distance < 300) {
                         this.setVelocityY(-500);
-    
                     }
                     this.setAccelerationX(-30);
                 } else {
                     if (onGround && distance < 300) {
                         this.setVelocityY(-500);
-    
+
                     }
                     this.setAccelerationX(30);
                 }
-    
+
             } else if (this.takesDamage){
                 this.setAccelerationX(0);
             }
-    
+
             if (this.health<=0) {
                 debugger;
                 this.die();
             }
-
-           
-    
         }
-
-   
     }
 
     die() {
@@ -111,12 +95,10 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
             this.on("animationcomplete", ()=> {
                 this.destroy();
                 this.visible=false;
-                this.setFrame(9);
-                
+                //this.setFrame(9);  
             });
         }
     }
-
     knockedBack() {
         let acc = this.scene.player.sprite.x < this.x ? 300 : -300;
         this.setVelocityY(-100);
