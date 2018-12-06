@@ -5,6 +5,7 @@ import {teleporter} from "../helpers/teleporter";
 import Creature from "../models/creature";
 import Slime from "../models/slime";
 import potionFactory from "../helpers/potionFactory";
+import BoxGroup from "../helpers/boxGroup";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -90,9 +91,23 @@ export class GameScene extends Phaser.Scene {
         // fix the text to the camera
         this.text.setScrollFactor(0);
 
+        this.boxGroup = new BoxGroup({scene: this});
+
     }
 
     update(time, delta) {
+
+        const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
+
+        if (this.input.manager.activePointer.isDown) {
+            //if (shiftKey.isDown) {
+                //let sprite = this.physics.add.sprite(worldPoint.x, worldPoint.y, "tiles", 220);
+                this.boxGroup.addBox(worldPoint.x, worldPoint.y);
+              //groundLayer.removeTileAtWorldXY(worldPoint.x, worldPoint.y);
+           // } else {
+              //groundLayer.putTileAtWorldXY(353, worldPoint.x, worldPoint.y);
+            //}
+          }
 
         this.slimes.children.iterate(function (slime) {
            // if (slime.health>0) {
