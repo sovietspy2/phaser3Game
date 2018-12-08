@@ -49,7 +49,6 @@ export class GameScene extends Phaser.Scene {
         locations.forEach( (location)=>{
             let slime = new Slime({scene:this, x: location.x, y: location.y, key:"slime"});
             slime = this.physics.add.existing(slime);
-            debugger;
             console.log(slime);
             slime.setDrag(1000,0)
             .setMaxVelocity(300,400)

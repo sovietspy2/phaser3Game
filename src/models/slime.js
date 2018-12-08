@@ -25,7 +25,6 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
     }
 
     takeDamage() {
-        debugger;
         if (this.takesDamage) {
             this.scene.time.delayedCall(1000, this.setTakesDamageTrue, [], this);  // delay in
             this.takesDamage=false;
@@ -74,7 +73,6 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
             }
 
             if (this.health<=0) {
-                debugger;
                 this.die();
             }
         }

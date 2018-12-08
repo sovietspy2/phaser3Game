@@ -1,6 +1,8 @@
 export default class BoxGroup extends Phaser.Physics.Arcade.Group {
     constructor(config) {
+
         super(config.scene.physics.world, config.scene);
+        this.MAX_BOXES = 2;
 
         let scene = config.scene;
         scene.physics.add.collider(this, scene.groundLayer);
@@ -8,10 +10,27 @@ export default class BoxGroup extends Phaser.Physics.Arcade.Group {
         scene.physics.add.collider(this, scene.slimes);
         scene.physics.add.collider(this, this);
 
+        this.wurking = false;
+        this.scene.time.delayedCall(3000, this.activateAddBox, [], this); // its important because it adds one up on start
     }
 
-    addBox(x,y) {
-        this.create(x,y,"tiles",220)
+    addBox(x, y) {
+
+        if (this.wurking) {
+            this.create(x, y, "tiles", 220);
+            this.wurking = false;
+            this.scene.time.delayedCall(3000, this.activateAddBox, [], this); // delay in
+            if (this.getLength() > this.MAX_BOXES) {
+                let box = this.getFirst(true);
+                this.remove(box);
+            }
+        }
+
+
+    }
+
+    activateAddBox() {
+        this.wurking = true;
     }
 
 }

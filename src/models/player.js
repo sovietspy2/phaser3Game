@@ -112,10 +112,11 @@ export default class Player {
 
         const keys = this.keys;
         const sprite = this.sprite;
-        const onGround = sprite.body.blocked.down;
+        const onGround = sprite.body.blocked.down || sprite.body.touching.down;
+
+        //console.log( sprite.body.checkCollision); // check if enabled
+
         const acceleration = onGround ? 600 : 200;
-
-
 
         if (keys.left.isDown || keys.a.isDown) {
           sprite.setAccelerationX(-acceleration);
