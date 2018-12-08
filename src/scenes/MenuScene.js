@@ -8,6 +8,7 @@ export class MenuScene extends Phaser.Scene{
 
     init(data){
         console.log("menu here", data)
+        this.nextMap = data.nextMap;
     }
 
     create() {
@@ -34,7 +35,7 @@ export class MenuScene extends Phaser.Scene{
 
         playButton.on("pointerdown", ()=> {
             console.log("GOING TO GAME SCENE");
-            this.scene.start(CST.SCENES.GAME)
+            this.scene.start(CST.SCENES.GAME, {nextMap: this.nextMap});
         });
 
         playButton.on("pointerup", ()=> {

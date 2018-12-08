@@ -3,8 +3,7 @@ import Phaser from 'phaser';
 import {LoadScene} from "./scenes/LoadScene";
 import {MenuScene} from "./scenes/MenuScene";
 import { GameScene } from "./scenes/GameScene";
-
-
+import {MapLoadScene} from "./scenes/MapLoadScene";
 
 let game = new Phaser.Game({
     type: Phaser.AUTO,
@@ -21,7 +20,8 @@ let game = new Phaser.Game({
             scene: [
                 LoadScene,
                 MenuScene,
-                GameScene
+                GameScene,
+                MapLoadScene
             ],
             parent: "game"
 });

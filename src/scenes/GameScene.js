@@ -15,10 +15,21 @@ export class GameScene extends Phaser.Scene {
 
     }
 
+
+    init(data) {
+        this.nextMap = data.nextMap;
+    }
+
+    preload() {
+        debugger;
+        this.load.tilemapTiledJSON(this.nextMap, 'assets/'+this.nextMap);
+    }
+
+
     create() {
         console.log("GAME SCENE CREATE START");
-
-        this.map = this.make.tilemap({ key: 'map' });
+        debugger;
+        this.map = this.make.tilemap({ key: this.nextMap });
         var tiles = this.map.addTilesetImage('MapDetails','tiles');
 
         this.groundLayer3 = this.map.createDynamicLayer('Background', tiles,0,0);

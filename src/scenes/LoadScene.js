@@ -4,13 +4,13 @@ export class LoadScene extends Phaser.Scene {
         super({
             key: CST.SCENES.LOAD
         });
-    }
-    init() {
+        
     }
 
     preload() {
+        
         console.log("PRELOAD FUNCTION START");
-
+        debugger;
         this.load.image("title_bg", "./assets/image/title_bg.jpg")
         //....
         this.load.image("potion","./assets/potion.png");
@@ -44,13 +44,13 @@ export class LoadScene extends Phaser.Scene {
             loadingBar.fillRect(0, this.game.renderer.height / 2, this.game.renderer.width * percent, 50)
         });
 
-        this.load.on("complete", () => {
-            this.scene.start(CST.SCENES.MENU, "test");
+        this.load.once("complete", () => {
+            this.scene.start(CST.SCENES.MENU, {nextMap: "castle.json"});
         });
 
         this.load.spritesheet('coin', 'assets/stolencoin.png', { frameWidth: 32, frameHeight: 32 });
 
-        this.load.tilemapTiledJSON('map', 'assets/castle.json');
+        
         // tiles in spritesheet
         this.load.spritesheet('tiles', 'assets/tile_castle.png', { frameWidth: 32, frameHeight: 32 });
 
@@ -66,12 +66,17 @@ export class LoadScene extends Phaser.Scene {
         // player animations
         //this.load.atlas('player', 'assets/player.png', 'assets/player.json');
 
+        this.load.tilemapTiledJSON('castle.json', 'assets/castle.json');
+
         console.log("PRELOAD FUNCTION END");
+
+
+       
     }
     create() {
         console.log("LOAD SCENE CREATE FUNCTION START ");
 
-
+        if (!this.nextMap) {
         this.anims.create({
             key: 'slime',
             frames: this.anims.generateFrameNumbers('slime', { start: 0 , end: 20}),
@@ -120,6 +125,7 @@ export class LoadScene extends Phaser.Scene {
             frameRate: 12,
             repeat: Phaser.FOREVER
         });
+    }
 
         //this.scene.start(CST.SCENES.MENU)
         console.log("LOAD SCENE CREATE FUNCTION END ");
