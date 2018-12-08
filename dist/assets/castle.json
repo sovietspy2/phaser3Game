@@ -178,6 +178,17 @@
                  "height":32,
                  "id":18,
                  "name":"doorin",
+                 "properties":[
+                        {
+                         "name":"nextMap",
+                         "type":"string",
+                         "value":"castle2.json"
+                        }, 
+                        {
+                         "name":"nextMapName",
+                         "type":"string",
+                         "value":"Level 2"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
