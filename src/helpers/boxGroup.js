@@ -10,6 +10,8 @@ export default class BoxGroup extends Phaser.Physics.Arcade.Group {
         scene.physics.add.collider(this, scene.slimes);
         scene.physics.add.collider(this, this);
 
+        this.runChildUpdate=true;
+
         this.wurking = false;
         this.scene.time.delayedCall(3000, this.activateAddBox, [], this); // its important because it adds one up on start
     }
@@ -26,8 +28,16 @@ export default class BoxGroup extends Phaser.Physics.Arcade.Group {
             }
         }
 
-
     }
+
+    update(time,delta) {
+        this.children.iterate( (child)=> {
+            if (child.y>this.scene.map.heightInPixels-50) {
+                this.remove(child);
+            }
+        });
+    }
+
 
     activateAddBox() {
         this.wurking = true;
