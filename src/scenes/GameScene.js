@@ -112,7 +112,7 @@ export class GameScene extends Phaser.Scene {
         // fix the text to the camera
         this.text.setScrollFactor(0);
 
-        this.boxNumber = this.add.text(700, 17, 'Boxes: 2', {
+        this.boxNumber = this.add.text(670, 17, 'Boxes: 2', {
             fontSize: '20px',
             fill: '#ffffff'
         });
