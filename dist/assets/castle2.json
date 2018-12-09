@@ -48,6 +48,18 @@
                  "width":0,
                  "x":36,
                  "y":577
+                }, 
+                {
+                 "height":0,
+                 "id":4,
+                 "name":"slime",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":241,
+                 "y":471
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -69,7 +81,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":4,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
