@@ -54,9 +54,10 @@ export class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
-        let locations = [ {x:200, y:200}, {x:400,y:400}, {x:500, y:500}];
+        //let locations = [ {x:200, y:200}, {x:400,y:400}, {x:500, y:500}];
+        let locations = this.map.filterObjects("Objects", (obj)=> obj.name == "slime", this );
 
-        this.slimes = this.physics.add.group();
+        this.slimes = this.physics.add.group(); // IT SHOULD BE REFACTORD TO LOOK LIKE POTIONFACTORY
         locations.forEach( (location)=>{
             let slime = new Slime({scene:this, x: location.x, y: location.y, key:"slime"});
             slime = this.physics.add.existing(slime);
@@ -72,12 +73,10 @@ export class GameScene extends Phaser.Scene {
         });
 
         this.slimes.children.iterate(function (slime) {
-
             slime.setCollideWorldBounds(true);
-
         });
 
-
+        
         //let config = {scene: this, x: 200, y:200, key:"slime"};
         //this.slime = new Slime(config);
 
@@ -94,6 +93,17 @@ export class GameScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#ccccff');
 
         // this text will show the score
+        this.addSimpleUI();
+
+
+
+        this.boxGroup = new BoxGroup({scene: this});
+
+
+
+    }
+
+    addSimpleUI() {
         this.text = this.add.text(20, 570, '0', {
             fontSize: '20px',
             fill: '#ffffff'
@@ -101,11 +111,16 @@ export class GameScene extends Phaser.Scene {
         // fix the text to the camera
         this.text.setScrollFactor(0);
 
-        this.boxGroup = new BoxGroup({scene: this});
-
+        this.boxNumber = this.add.text(700, 17, 'Boxes: 2', {
+            fontSize: '20px',
+            fill: '#ffffff'
+        });
+        this.boxNumber.setScrollFactor(0);
     }
 
     update(time, delta) {
+
+        this.boxNumber.setText("Boxes: "+(this.boxGroup.getLength()));
 
         const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
 
@@ -138,6 +153,13 @@ export class GameScene extends Phaser.Scene {
            this.player.destroy();
            this.scene.restart();
         }
+
+        this.boxGroup.update();
+
     }
+
+
+
+
 
 }
