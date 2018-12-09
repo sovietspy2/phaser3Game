@@ -1,4 +1,5 @@
 import {CST} from "../CST";
+import { timingSafeEqual } from "crypto";
 
 export function teleporter(scene) {
 
@@ -22,10 +23,8 @@ export function teleporter(scene) {
 function teleport() {
     console.log("map changing . . . ");
     //this.player.sprite.x = this.doorOut.x;
-    //this.player.sprite.y = this.doorOut.y;
-    console.log(this.nextMap);
-    
-    this.scene.restart({nextMap: this.nextMap});
+    //this.player.sprite.y = this.doorOut.y;    
+    this.scene.restart({nextMap: this.nextMap, score: this.player.score});
 
 
 }

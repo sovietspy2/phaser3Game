@@ -10,7 +10,7 @@ export default class Player {
         const anims = scene.anims;
 
         // player creating
-        this.score = 0;
+        this.score = scene.initScore ? scene.initScore : 0;
         this.isAttacking = false;
         this.invincible = false;
 

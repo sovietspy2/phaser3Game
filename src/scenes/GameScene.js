@@ -18,6 +18,7 @@ export class GameScene extends Phaser.Scene {
 
     init(data) {
         this.nextMap = data.nextMap;
+        this.initScore = data.score;
     }
 
     preload() {
