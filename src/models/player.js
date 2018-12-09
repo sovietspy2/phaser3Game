@@ -31,7 +31,7 @@ export default class Player {
             .setOffset(70, 20)
             .setCollideWorldBounds(true);
 
-        const { LEFT, RIGHT, UP, W, A, D , SPACE} = Phaser.Input.Keyboard.KeyCodes;
+        const { LEFT, RIGHT, UP, W, A, D , SPACE, R} = Phaser.Input.Keyboard.KeyCodes;
         this.keys = scene.input.keyboard.addKeys({
             left: LEFT,
             right: RIGHT,
@@ -39,7 +39,8 @@ export default class Player {
             w: W,
             a: A,
             d: D,
-            space: SPACE
+            space: SPACE,
+            r: R
         });
 
         this.healthBar = new HealthBar(scene, 20,20);
@@ -154,6 +155,10 @@ export default class Player {
             console.log("ATTACKING BECAUSE ISATTACKING IS FALSE");
             // Phaser.Math.Distance.Between() this is gonna calculate wheter it huts something or not
           }
+        }
+
+        if (keys.r.isDown) {
+          this.scene.boxGroup.clear(true,true);
         }
       }
 
