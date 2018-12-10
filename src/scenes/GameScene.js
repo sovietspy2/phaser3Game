@@ -6,6 +6,8 @@ import Creature from "../models/creature";
 import Slime from "../models/slime";
 import potionFactory from "../helpers/potionFactory";
 import BoxGroup from "../helpers/boxGroup";
+import WeaponPlugin from 'phaser3-weapon-plugin'
+
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -24,12 +26,13 @@ export class GameScene extends Phaser.Scene {
     preload() {
         debugger;
         this.load.tilemapTiledJSON(this.nextMap, 'assets/'+this.nextMap);
+        this.load.scenePlugin('WeaponPlugin', WeaponPlugin, null, 'weapons'); 
     }
 
 
     create() {
         console.log("GAME SCENE CREATE START");
-        debugger;
+        //this.sys.install('WeaponPlugin');
         this.map = this.make.tilemap({ key: this.nextMap });
         var tiles = this.map.addTilesetImage('MapDetails','tiles');
 
@@ -100,6 +103,25 @@ export class GameScene extends Phaser.Scene {
 
         this.boxGroup = new BoxGroup({scene: this});
 
+        //// BULLET
+
+        this.weapon = this.weapons.add(1, 'bullet');
+
+        // Enable physics debugging for the bullets
+        this.weapon.debugPhysics = true
+      
+        //  The bullet will be automatically killed when it leaves the world bounds
+        console.log(`setting bulletKillType`)
+        this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
+      
+        //  Because our bullet is drawn facing up, we need to offset its rotation:
+        this.weapon.bulletAngleOffset = 90;
+      
+        //  The speed at which the bullet is fired
+        this.weapon.bulletSpeed = 400;
+    
+        //  Tell the Weapon to track the 'player' Sprite
+        this.weapon.trackSprite(this.player.sprite);
 
 
     }
@@ -120,6 +142,8 @@ export class GameScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+
+        //this.weapon.fire();
 
         this.boxNumber.setText("Boxes: "+(this.boxGroup.getLength()));
 
