@@ -6,7 +6,7 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
         super(config.scene, config.x, config.y, config.key,0);
 
         this.dead = false;
-        this.scene = config.scene;
+        //this.scene = config.scene;
 
         this.scene.sys.displayList.add(this);
         this.scene.sys.updateList.add(this);

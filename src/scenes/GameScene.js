@@ -12,7 +12,8 @@ import Creature from "../models/creature";
 import Slime from "../models/slime";
 import potionFactory from "../helpers/potionFactory";
 import BoxGroup from "../helpers/boxGroup";
-import WeaponPlugin from 'phaser3-weapon-plugin'
+import WeaponPlugin from 'phaser3-weapon-plugin';
+import Wizard from '../models/wizard';
 
 
 export class GameScene extends Phaser.Scene {
@@ -67,45 +68,6 @@ export class GameScene extends Phaser.Scene {
 
 
 
-         //// BULLET
-
-         this.weapon = this.weapons.add(1, 'skull');
-
-         //this.weapon.setBulletBodyOffset(50,50,30,40);
- 
-         //this.weapon.set
- 
-         //console.log(this.weapon.bullets);
- 
-         this.weapon.bullets.children.iterate(bullet => {
-             bullet.setScale(0.5);
-             bullet.anims.play("skull-fly");
-             bullet.body.allowGravity=false;
-         });
- 
-         this.physics.add.collider(this.weapon.bullets, this.player.sprite, (bullet, player)=> bullet.kill(), null, this);
- 
-         this.weapon.fireAngle = 180;
- 
-         // Enable physics debugging for the bullets
-         this.weapon.debugPhysics = true
- 
-         //  The bullet will be automatically killed when it leaves the world bounds
-         console.log(`setting bulletKillType`)
-         this.weapon.bulletKillType = WeaponPlugin.consts.KILL_WORLD_BOUNDS;
- 
-         //  Because our bullet is drawn facing up, we need to offset its rotation:
-         this.weapon.bulletAngleOffset = 200;
- 
-         //  The speed at which the bullet is fired
-         this.weapon.bulletSpeed = 400;
- 
-         //  Tell the Weapon to track the 'player' Sprite
- 
-
-
-
-
         // adding coins to the map
         coinFactory(this);
         teleporter(this);
@@ -134,7 +96,7 @@ export class GameScene extends Phaser.Scene {
                 .setOffset(10, 20)
                 .setCollideWorldBounds(true);
 
-            this.weapon.trackSprite(slime);
+            //this.weapon.trackSprite(slime);
             this.slimes.add(slime);
         });
 
@@ -168,6 +130,8 @@ export class GameScene extends Phaser.Scene {
         });
 
 
+        this.wizard = new Wizard({scene:this, x:200,y:700, key:0});
+
 
 
     }
@@ -189,7 +153,7 @@ export class GameScene extends Phaser.Scene {
 
     update(time, delta) {
 
-        this.weapon.fire();
+    
 
         this.boxNumber.setText("Boxes: " + (this.boxGroup.getLength()));
 
