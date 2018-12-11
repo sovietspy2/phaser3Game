@@ -83,7 +83,7 @@ export class GameScene extends Phaser.Scene {
              bullet.body.allowGravity=false;
          });
  
-         this.physics.add.collider(this.weapon.bullets, this.player.sprite, () => console.log("HIT"), null, this);
+         this.physics.add.collider(this.weapon.bullets, this.player.sprite, (bullet, player)=> bullet.kill(), null, this);
  
          this.weapon.fireAngle = 180;
  

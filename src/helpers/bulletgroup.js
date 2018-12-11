@@ -5,7 +5,8 @@ export default class BulletGroup extends Phaser.Physics.Arcade.Group {
     }
 
     collisonWithPlayer(player, bullet) {
-        
+        debugger;
+        bullet.destory();
     }
 
 }
