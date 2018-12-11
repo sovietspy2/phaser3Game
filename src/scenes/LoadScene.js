@@ -54,6 +54,8 @@ export class LoadScene extends Phaser.Scene {
         // tiles in spritesheet
         this.load.spritesheet('tiles', 'assets/tile_castle.png', { frameWidth: 32, frameHeight: 32 });
 
+        this.load.spritesheet('skull', 'assets/fire-skull.png', { frameWidth: 96, frameHeight: 112 });
+
         // this.load.spritesheet('hero-idle', 'assets/hero-idle.png', { frameWidth: 37, frameHeight: 48 });
         // this.load.spritesheet('hero-jump', 'assets/hero-jump.png', { frameWidth: 60, frameHeight: 77 });
         // this.load.spritesheet('hero-attack', 'assets/hero-attack.png', { frameWidth: 100, frameHeight: 48 });
@@ -82,6 +84,13 @@ export class LoadScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('slime', { start: 0 , end: 20}),
             frameRate: 10,
             repeat: Phaser.FOREVER,
+        });
+
+        this.anims.create({
+            key: 'skull-fly',
+            frames: this.anims.generateFrameNumbers('skull', {start: 0, end: 7}),
+            frameRate: 10,
+            repeat: Phaser.FOREVER
         });
 
         this.anims.create({
