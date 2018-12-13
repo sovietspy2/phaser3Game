@@ -92,7 +92,7 @@ export class LoadScene extends Phaser.Scene {
         this.anims.create({
             key: 'wizard',
             frames: this.anims.generateFrameNumbers('wizard', { start: 0 , end: 6}),
-            frameRate: 7,
+            frameRate: 10,
             repeat: 0,
         });
 

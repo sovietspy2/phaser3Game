@@ -19,7 +19,7 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
         this.on('animationcomplete', ()=>{
             this.scene.time.delayedCall(1000, ()=> {
                 //this.weapon.fire();
-                this.update();
+                this.weaponUpdate();
                 this.weapon.fireAtSprite(this.scene.player.sprite);
                 this.anims.play("wizard");
                 
@@ -31,8 +31,21 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
         this.setOffset(66,60);
 
 
-        this.scene.physics.add.collider(this, this.scene.groundLayer);
+        //this.scene.physics.add.collider(this, this.scene.groundLayer);
+        //this.scene.physics.add.overlap(this, this.scene.player.sword, ()=> {
+        //    this.takeDamage();
+        //}, null, this);
+
+        this.dead = false;
     }
+
+    takeDamage() {
+            this.scene.time.delayedCall(1000, ()=>this.clearTint(), [], this);  // delay in
+            this.setTint(0xff0000);
+            console.log("WIZARD: OUTCH");
+            this.health -= 50;
+    }
+
 
     createBullet() {
         this.weapon = this.scene.weapons.add(2, 'skull');
@@ -49,7 +62,10 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
             bullet.body.allowGravity=false;
         });
 
-        this.scene.physics.add.collider(this.weapon.bullets, this.scene.player.sprite, (bullet, player)=> bullet.kill(), null, this);
+        this.scene.physics.add.collider(this.weapon.bullets, this.scene.player.sprite, (bullet, player)=> {
+            bullet.kill();
+            this.scene.player.takeDamage();
+        }, null, this);
 
         this.weapon.fireAngle = 180;
 
@@ -79,15 +95,15 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
        //this.weapon.bulletGravity= new Phaser.Math.Vector2(0, 0);
     }
 
-    changeFacing() {
-        this.weapon.bulletAngleOffset = 200;
-    }
-
-    update() {
+    /**
+     * this method handles the facing of the wizard. eg turns the bullets left or right
+     */
+    weaponUpdate() {
+       if (!this.dead) {
         if (this.scene.player.sprite.x > this.x) {
             this.weapon.fireAngle = 0;
             this.weapon.bulletAngleOffset=0;
-            console.log("THIS") // RIGHT
+            console.log("THIS"); // RIGHT
            // this.weapon.bulletAngleOffset = 0;
             this.weapon.bullets.children.iterate( bullet=> {
                 bullet.setFlipX(true);
@@ -95,10 +111,38 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.weapon.fireAngle = 180;
             this.weapon.bulletAngleOffset=200;
-            console.log("that") // LEFT
+            console.log("that"); // LEFT
             this.weapon.bullets.children.iterate( bullet=> {
                bullet.setFlipX(false);
             });
+        }
+       }        
+    }
+
+    die() {
+        let particles = this.scene.add.particles('skull');
+        let whiteSmoke = particles.createEmitter({
+            x: this.x,
+            y: this.y,
+            speed: { min: 10, max: 80 },
+            angle: { min: 0, max: 360},
+            scale: { start: 1, end: 0},
+            alpha: { start: 0, end: 0.5},
+            lifespan: 500,
+            //active: false
+        });
+        whiteSmoke.explode(25);
+
+      
+        this.scene.time.delayedCall(1000, ()=> {
+            particles.destroy();
+        }, {}, this);
+    }
+
+    update() {
+        if (this.health < 0 && !this.dead) {
+            this.dead = true;
+            //this.weapon.destroy();
         }
     }
 

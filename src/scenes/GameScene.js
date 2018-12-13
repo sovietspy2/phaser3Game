@@ -14,6 +14,7 @@ import potionFactory from "../helpers/potionFactory";
 import BoxGroup from "../helpers/boxGroup";
 import WeaponPlugin from 'phaser3-weapon-plugin';
 import Wizard from '../models/wizard';
+import WizardGroup from "../helpers/wizardgroup";
 
 
 export class GameScene extends Phaser.Scene {
@@ -130,9 +131,9 @@ export class GameScene extends Phaser.Scene {
         });
 
 
-        this.wizard = new Wizard({scene:this, x:200,y:700, key:0});
+        //this.wizard = new Wizard({scene:this, x:200,y:700, key:0});
 
-
+        this.wizardGroup = new WizardGroup({scene:this});
 
     }
 
@@ -153,6 +154,12 @@ export class GameScene extends Phaser.Scene {
 
     update(time, delta) {
 
+        //if (this.wizard) {
+           // this.wizard.update()
+        //}
+
+        this.wizardGroup.update();
+        
     
 
         this.boxNumber.setText("Boxes: " + (this.boxGroup.getLength()));
