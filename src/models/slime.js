@@ -18,6 +18,8 @@ export default class Slime extends Phaser.Physics.Arcade.Sprite{
 
         this.anims.play("slime");
 
+        this.setCollideWorldBounds(true);
+
         this.scene.physics.add.overlap(this.scene.player.sword, this, this.takeDamage, null,this);
 
         this.scene.physics.add.overlap(this.scene.player.sprite, this, this.knockedBack, null,this); // Might not need this

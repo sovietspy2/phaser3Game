@@ -15,6 +15,7 @@ import BoxGroup from "../helpers/boxGroup";
 import WeaponPlugin from 'phaser3-weapon-plugin';
 import Wizard from '../models/wizard';
 import WizardGroup from "../helpers/wizardgroup";
+import SlimeGroup from "../helpers/slimeGroup";
 
 
 export class GameScene extends Phaser.Scene {
@@ -41,9 +42,6 @@ export class GameScene extends Phaser.Scene {
     create() {
         console.log("GAME SCENE CREATE START");
 
-
-
-        //this.sys.install('WeaponPlugin');
         this.map = this.make.tilemap({
             key: this.nextMap
         });
@@ -76,40 +74,8 @@ export class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
-        //let locations = [ {x:200, y:200}, {x:400,y:400}, {x:500, y:500}];
-        let locations = this.map.filterObjects("Objects", (obj) => obj.name == "slime", this);
+        this.slimes = new SlimeGroup({scene: this});
 
-        this.slimes = this.physics.add.group(); // IT SHOULD BE REFACTORD TO LOOK LIKE POTIONFACTORY
-        locations.forEach((location) => {
-            let slime = new Slime({
-                scene: this,
-                x: location.x,
-                y: location.y,
-                key: "slime"
-            });
-            slime = this.physics.add.existing(slime);
-            console.log(slime);
-            slime.setDrag(1000, 0)
-                .setMaxVelocity(300, 400)
-                .setScale(0.5)
-                .setScale(2)
-                .setSize(13, 13) // hitbox size
-                .setOffset(10, 20)
-                .setCollideWorldBounds(true);
-
-            //this.weapon.trackSprite(slime);
-            this.slimes.add(slime);
-        });
-
-        this.slimes.children.iterate(function (slime) {
-            slime.setCollideWorldBounds(true);
-        });
-
-
-        //let config = {scene: this, x: 200, y:200, key:"slime"};
-        //this.slime = new Slime(config);
-
-        this.physics.add.collider(this.slimes, this.groundLayer);
         //this.physics.add.collider(this.slimes, this.player.sprite);
         this.player.enemyCollider(this.slimes);
 
@@ -176,11 +142,10 @@ export class GameScene extends Phaser.Scene {
             //}
         }
 
-        this.slimes.children.iterate(function (slime) {
-            // if (slime.health>0) {
-            slime.update(time, delta);
-            //}
-        });
+        
+
+        this.slimes.update(time,delta);
+
         this.text.setText(this.player.score);
 
         //this.physics.moveToObject(this.slime.sprite,this.player.sprite);
@@ -192,7 +157,7 @@ export class GameScene extends Phaser.Scene {
         if (this.player.sprite.y > this.map.heightInPixels - 50) {
             //debugger;
             console.log("player destroyed, scene restarting . . . ")
-            this.player.destroy();
+            //this.player.destroy();
             this.scene.restart();
         }
 
