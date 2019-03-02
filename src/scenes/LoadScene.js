@@ -14,7 +14,7 @@ export class LoadScene extends Phaser.Scene {
 
        //let test = this.load.scenePlugin('WeaponPlugin', WeaponPlugin, 'weapons', CST.SCENES.GAME);
       // this.load.scenePlugin('WeaponPlugin', WeaponPlugin, "weapons", CST.SCENES.GAME);
-       
+        this.load.audio("sound","http://www.largesound.com/ashborytour/sound/brobob.mp3");
         //console.log(test);
         this.load.image("title_bg", "./assets/image/title_bg.jpg")
         //....

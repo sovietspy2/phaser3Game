@@ -23,6 +23,9 @@ let game = new Phaser.Game({
                 MenuScene,
                 GameScene
             ],
+            audio: {
+                disableWebAudio: true
+            },
             //global: [
            //     { key:'WeaponPlugin',plugin: WeaponPlugin, start:true, mapping:'weapons'}
            // ],

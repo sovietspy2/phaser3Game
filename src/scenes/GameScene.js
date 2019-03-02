@@ -54,7 +54,7 @@ export class GameScene extends Phaser.Scene {
         //this.weapons = this.plugins.get("WeaponPlugin");
        // this.sys.install('WeaponPlugin');
       //this.weapons2 = this.plugins.install('weapons', WeaponPlugin, true);
-
+        this.sound.play("sound");
         console.log("GAME SCENE CREATE START");
 
         this.map = this.make.tilemap({
