@@ -231,6 +231,40 @@
                  "width":0,
                  "x":525.333333333333,
                  "y":728
+                }, 
+                {
+                 "height":19,
+                 "id":26,
+                 "name":"text",
+                 "rotation":0,
+                 "text":
+                    {
+                     "color":"#ffff00",
+                     "text":"WHZ NOT WORKING",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":83,
+                 "x":229.166666666667,
+                 "y":649.166666666667
+                }, 
+                {
+                 "height":19,
+                 "id":27,
+                 "name":"text",
+                 "rotation":0,
+                 "text":
+                    {
+                     "color":"#ff0000",
+                     "text":"ADAM WTF",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":83,
+                 "x":296.5,
+                 "y":716
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -239,7 +273,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":26,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.2",

@@ -16,6 +16,7 @@ import WeaponPlugin from 'phaser3-weapon-plugin';
 import Wizard from '../models/wizard';
 import WizardGroup from "../helpers/wizardgroup";
 import SlimeGroup from "../helpers/slimeGroup";
+import createTextFromObject from "../helpers/createTextFromObject";
 
 
 export class GameScene extends Phaser.Scene {
@@ -78,7 +79,7 @@ export class GameScene extends Phaser.Scene {
         // create the player sprite
         this.player = new Player(this);
 
-
+        createTextFromObject("Objects","text", this);
 
 
         // adding coins to the map
@@ -89,6 +90,8 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
         this.slimes = new SlimeGroup({scene: this});
+    
+        this.add.text(500, 500, 'hello');
 
         //this.physics.add.collider(this.slimes, this.player.sprite);
         this.player.enemyCollider(this.slimes);
