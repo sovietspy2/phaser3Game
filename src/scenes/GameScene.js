@@ -12,7 +12,7 @@ import Creature from "../models/creature";
 import Slime from "../models/slime";
 import potionFactory from "../helpers/potionFactory";
 import BoxGroup from "../helpers/boxGroup";
-import WeaponPlugin from 'phaser3-weapon-plugin';
+import WeaponPlugin from '@sovietspy2/phaser3-weapon-plugin';
 import Wizard from '../models/wizard';
 import WizardGroup from "../helpers/wizardgroup";
 import SlimeGroup from "../helpers/slimeGroup";

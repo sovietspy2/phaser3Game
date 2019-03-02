@@ -1,4 +1,4 @@
-import WeaponPlugin from 'phaser3-weapon-plugin';
+import WeaponPlugin from '@sovietspy2/phaser3-weapon-plugin';
 
 export default class Wizard extends Phaser.Physics.Arcade.Sprite {
 
