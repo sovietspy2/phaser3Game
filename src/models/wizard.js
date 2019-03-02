@@ -30,12 +30,6 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
         this.setSize(50,120);
         this.setOffset(66,60);
 
-
-        //this.scene.physics.add.collider(this, this.scene.groundLayer);
-        //this.scene.physics.add.overlap(this, this.scene.player.sword, ()=> {
-        //    this.takeDamage();
-        //}, null, this);
-
         this.dead = false;
     }
 
@@ -86,13 +80,7 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
 
         this.weapon.trackSprite(this);
 
-        //this.weapon.bullets.children.iterate(bullet => {
-       //     bullet.setScale(0.5);
-       //     bullet.anims.play("skull-fly");
-       //     bullet.body.allowGravity=false;
-       // });
        this.weapon.bulletAnimation="skull-fly";
-       //this.weapon.bulletGravity= new Phaser.Math.Vector2(0, 0);
     }
 
     /**

@@ -219,18 +219,6 @@
                  "width":0,
                  "x":689,
                  "y":764
-                }, 
-                {
-                 "height":0,
-                 "id":25,
-                 "name":"wizard",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":525.333333333333,
-                 "y":728
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -239,10 +227,10 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":26,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.2.2",
+ "tiledversion":"1.2.1",
  "tileheight":32,
  "tilesets":[
         {

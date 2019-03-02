@@ -1,4 +1,5 @@
 import { CST } from "../CST";
+//import WeaponPlugin from 'phaser3-weapon-plugin';
 export class LoadScene extends Phaser.Scene {
     constructor() {
         super({
@@ -10,7 +11,11 @@ export class LoadScene extends Phaser.Scene {
     preload() {
         
         console.log("PRELOAD FUNCTION START");
-        debugger;
+
+       //let test = this.load.scenePlugin('WeaponPlugin', WeaponPlugin, 'weapons', CST.SCENES.GAME);
+      // this.load.scenePlugin('WeaponPlugin', WeaponPlugin, "weapons", CST.SCENES.GAME);
+       
+        //console.log(test);
         this.load.image("title_bg", "./assets/image/title_bg.jpg")
         //....
         this.load.image("potion","./assets/potion.png");
@@ -73,6 +78,8 @@ export class LoadScene extends Phaser.Scene {
 
         this.load.tilemapTiledJSON('castle.json', 'assets/castle.json');
 
+
+        //this.load.plugin('WeaponPlugin', WeaponPlugin, null, 'weapons');
         console.log("PRELOAD FUNCTION END");
 
 

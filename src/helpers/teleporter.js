@@ -2,7 +2,7 @@ import {CST} from "../CST";
 import { timingSafeEqual } from "crypto";
 
 export function teleporter(scene) {
-
+    debugger;
     const start = scene.map.findObject("Objects", obj => obj.name === "doorin");
     scene.nextMap = start.properties.find(x=> x.name === "nextMap").value;
     const doorOut = scene.map.findObject("Objects", obj => obj.name === "doorout");
@@ -23,7 +23,8 @@ export function teleporter(scene) {
 function teleport() {
     console.log("map changing . . . ");
     //this.player.sprite.x = this.doorOut.x;
-    //this.player.sprite.y = this.doorOut.y;    
+    //this.player.sprite.y = this.doorOut.y;
+
     this.scene.restart({nextMap: this.nextMap, score: this.player.score});
 
 

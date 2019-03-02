@@ -6,9 +6,7 @@ export default class WizardGroup extends Phaser.Physics.Arcade.Group {
 
         this.scene.physics.add.collider(this, this.scene.groundLayer);
 
-        //let wizardLocations = this.scene.map.filterObjects("Objects", (obj)=> obj.name == "wizard", this);
-        let wizardLocations = [{x:200,y:700}]
-
+        let wizardLocations = this.scene.map.filterObjects("Objects", (obj)=> obj.name == "wizard", this);
 
         wizardLocations.forEach( (location)=> {
             let wizard = new Wizard({scene: this.scene, x:location.x, y:location.y, key:"wizard"});

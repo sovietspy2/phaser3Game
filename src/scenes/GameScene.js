@@ -28,18 +28,32 @@ export class GameScene extends Phaser.Scene {
 
 
     init(data) {
+        console.log("INIT DATA:",data);
         this.nextMap = data.nextMap;
         this.initScore = data.score;
     }
 
     preload() {
-        debugger;
+        //this.load.plugin('WeaponPlugin', WeaponPlugin,true);
+        //debugger;
         this.load.tilemapTiledJSON(this.nextMap, 'assets/' + this.nextMap);
-        this.load.scenePlugin('WeaponPlugin', WeaponPlugin, null, 'weapons');
+        this.load.scenePlugin({
+             key: 'weapons',
+             url: WeaponPlugin
+            });
+        //console.log(this.scene.weapons);
+        //console.log("SAY MY NAME")
+        
+        // plugin = this.plugins.get('RandomNamePlugin');
+
     }
 
 
     create() {
+        //this.weapons = this.plugins.get("WeaponPlugin");
+       // this.sys.install('WeaponPlugin');
+      //this.weapons2 = this.plugins.install('weapons', WeaponPlugin, true);
+
         console.log("GAME SCENE CREATE START");
 
         this.map = this.make.tilemap({
@@ -101,6 +115,8 @@ export class GameScene extends Phaser.Scene {
 
         this.wizardGroup = new WizardGroup({scene:this});
 
+        //this.wizard = new Wizard({scene: this, x:200, y:700, key:"wizard"});
+
     }
 
     addSimpleUI() {
@@ -156,7 +172,8 @@ export class GameScene extends Phaser.Scene {
         // handling death
         if (this.player.sprite.y > this.map.heightInPixels - 50) {
             //debugger;
-            console.log("player destroyed, scene restarting . . . ")
+            console.log("player destroyed, scene restarting . . . ")   
+             debugger;
             //this.player.destroy();
             this.scene.restart();
         }

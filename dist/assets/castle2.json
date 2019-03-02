@@ -34,7 +34,7 @@
                 {
                  "height":0,
                  "id":2,
-                 "name":"doorin",
+                 "name":"doorinOLD",
                  "point":true,
                  "properties":[
                         {
@@ -60,6 +60,24 @@
                  "width":0,
                  "x":241,
                  "y":471
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"doorin",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"nextMap",
+                         "type":"string",
+                         "value":"level1.json"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":255,
+                 "y":581
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -81,10 +99,10 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.2.1",
+ "tiledversion":"1.2.2",
  "tileheight":32,
  "tilesets":[
         {
