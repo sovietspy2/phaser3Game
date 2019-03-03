@@ -1,4 +1,5 @@
 import WeaponPlugin from '@sovietspy2/phaser3-weapon-plugin';
+import BoxGroup from './../helpers/boxGroup';
 
 export default class Wizard extends Phaser.Physics.Arcade.Sprite {
 
@@ -55,6 +56,11 @@ export default class Wizard extends Phaser.Physics.Arcade.Sprite {
             //bullet.anims.play("skull-fly");
             bullet.body.allowGravity=false;
         });
+
+        this.scene.physics.add.collider(this.weapon.bullets, this.scene.boxGroup, (bullet,other) => {
+            bullet.kill();
+            console.log("THE BOX SAVED U");
+        },null,this);
 
         this.scene.physics.add.collider(this.weapon.bullets, this.scene.player.sprite, (bullet, player)=> {
             bullet.kill();

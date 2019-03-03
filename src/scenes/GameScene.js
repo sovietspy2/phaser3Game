@@ -109,7 +109,7 @@ export class GameScene extends Phaser.Scene {
 
         this.boxGroup = new BoxGroup({
             scene: this
-        });
+        });       
 
 
         //this.wizard = new Wizard({scene:this, x:200,y:700, key:0});
@@ -174,7 +174,6 @@ export class GameScene extends Phaser.Scene {
         if (this.player.sprite.y > this.map.heightInPixels - 50) {
             //debugger;
             console.log("player destroyed, scene restarting . . . ")   
-             debugger;
             //this.player.destroy();
             this.scene.restart();
         }
