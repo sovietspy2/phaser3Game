@@ -90,8 +90,6 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player.sprite, this.groundLayer);
 
         this.slimes = new SlimeGroup({scene: this});
-    
-        this.add.text(500, 500, 'hello');
 
         //this.physics.add.collider(this.slimes, this.player.sprite);
         this.player.enemyCollider(this.slimes);

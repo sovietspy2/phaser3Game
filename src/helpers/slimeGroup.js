@@ -15,8 +15,7 @@ export default class SlimeGroup extends Phaser.Physics.Arcade.Group {
             let slime = new Slime({
                 scene: scene,
                 x: location.x,
-                y: location.y,
-                key: "slime"
+                y: location.y
             });
             //slime = this.physics.add.existing(slime);
 

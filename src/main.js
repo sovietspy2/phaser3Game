@@ -5,6 +5,7 @@ import {MenuScene} from "./scenes/MenuScene";
 import { GameScene } from "./scenes/GameScene";
 import {MapLoadScene} from "./scenes/MapLoadScene";
 //import WeaponPlugin from 'phaser3-weapon-plugin';
+import { HelpScene } from './scenes/HelpScene';
 
 let game = new Phaser.Game({
     type: Phaser.AUTO,
@@ -21,7 +22,8 @@ let game = new Phaser.Game({
             scene: [
                 LoadScene,
                 MenuScene,
-                GameScene
+                GameScene,
+                HelpScene
             ],
             audio: {
                 disableWebAudio: true

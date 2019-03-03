@@ -22,8 +22,12 @@ export class MenuScene extends Phaser.Scene{
         //this.scene.start(CST.SCENES.MENU)
 
         let playButton = this.add.image(this.game.renderer.width/2, this.game.renderer.height*0.25, "playButton").setDepth(1);
+        let helpButton = this.add.image(this.game.renderer.width/2, (this.game.renderer.height+500)*0.25, "helpButton").setDepth(1);
+        helpButton.setScale(0.5);
 
         playButton.setInteractive();
+        helpButton.setInteractive();
+
 
         playButton.on("pointerout", () => {
             console.log("hover");
@@ -36,6 +40,11 @@ export class MenuScene extends Phaser.Scene{
         playButton.on("pointerdown", ()=> {
             console.log("GOING TO GAME SCENE");
             this.scene.start(CST.SCENES.GAME, {nextMap: this.nextMap});
+        });
+
+        helpButton.on("pointerdown", ()=> {
+            console.log("GOING TO HELP");
+            this.scene.start(CST.SCENES.HELP, {nextMap: this.nextMap});
         });
 
         playButton.on("pointerup", ()=> {
