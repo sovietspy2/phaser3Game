@@ -52,6 +52,7 @@ export default class Player {
 
           //Play the "attack" animation
           sprite.anims.play('player-attack');
+          this.scene.sound.play("sword", {volume: this.scene.volume});
 
           //this.healthbar.value = this.healthbar.value -10;
 

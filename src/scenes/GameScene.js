@@ -35,8 +35,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        //this.load.plugin('WeaponPlugin', WeaponPlugin,true);
-        //debugger;
+
         this.load.tilemapTiledJSON(this.nextMap, 'assets/' + this.nextMap);
         this.load.scenePlugin({
              key: 'weapons',
@@ -51,10 +50,9 @@ export class GameScene extends Phaser.Scene {
 
 
     create() {
-        //this.weapons = this.plugins.get("WeaponPlugin");
-       // this.sys.install('WeaponPlugin');
-      //this.weapons2 = this.plugins.install('weapons', WeaponPlugin, true);
-        this.sound.play("sound");
+        this.volume = 0.2;
+
+        //this.sound.play("sound", {loop: true, volume: this.volume});
         console.log("GAME SCENE CREATE START");
 
         this.map = this.make.tilemap({
@@ -137,10 +135,6 @@ export class GameScene extends Phaser.Scene {
 
     update(time, delta) {
 
-        //if (this.wizard) {
-           // this.wizard.update()
-        //}
-
         this.wizardGroup.update();
         
     
@@ -172,7 +166,7 @@ export class GameScene extends Phaser.Scene {
 
         // handling death
         if (this.player.sprite.y > this.map.heightInPixels - 50) {
-            //debugger;
+
             console.log("player destroyed, scene restarting . . . ")   
             //this.player.destroy();
             this.scene.restart();
