@@ -6,6 +6,7 @@ import { GameScene } from "./scenes/GameScene";
 import {MapLoadScene} from "./scenes/MapLoadScene";
 //import WeaponPlugin from 'phaser3-weapon-plugin';
 import { HelpScene } from './scenes/HelpScene';
+import SliderPlugin from './plugins/sliderPlugin';
 
 let game = new Phaser.Game({
     type: Phaser.AUTO,
@@ -27,6 +28,13 @@ let game = new Phaser.Game({
             ],
             audio: {
                 disableWebAudio: true
+            },
+            plugins: {
+                global: [{
+                    key: 'rexSlider',
+                    plugin: SliderPlugin,
+                    start: true
+                }]
             },
             //global: [
            //     { key:'WeaponPlugin',plugin: WeaponPlugin, start:true, mapping:'weapons'}

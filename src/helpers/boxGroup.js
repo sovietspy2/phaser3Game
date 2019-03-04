@@ -19,6 +19,7 @@ export default class BoxGroup extends Phaser.Physics.Arcade.Group {
     addBox(x, y) {
 
         if (this.wurking) {
+            this.scene.sound.play("spawn_box", {loop: false, volume: this.scene.volume});
             this.create(x, y, "tiles", 220);
             this.wurking = false;
             this.scene.time.delayedCall(3000, this.activateAddBox, [], this); // delay in

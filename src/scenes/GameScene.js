@@ -50,9 +50,34 @@ export class GameScene extends Phaser.Scene {
 
 
     create() {
-        this.volume = 0.2;
+        this.volume = 0.1;
 
-        //this.sound.play("sound", {loop: true, volume: this.volume});
+        this.img = this.add.image(400, 300, 'potion').setScale(1, 1);
+
+        this.img.slider = this.plugins.get('rexSlider').add(this.img, {
+            endPoints: [{
+                    x: this.img.x - 200,
+                    y: this.img.y - 200
+                },
+                {
+                    x: this.img.x + 200,
+                    y: this.img.y + 200
+                }
+            ],
+            value: 0.25
+        });
+
+        this.add.graphics()
+            .lineStyle(3, 0x55ff55, 1)
+            .strokePoints(this.img.slider.endPoints);
+
+        this.text = this.add.text(0, 0, '', {
+            fontSize: '20px'
+        });
+
+        const music = this.sound.add("sound", {loop: true,volume: 0.1});
+        music.setVolume(0.1);
+        //music.play({loop: true,volume: 0.1});
         console.log("GAME SCENE CREATE START");
 
         this.map = this.make.tilemap({
@@ -147,6 +172,7 @@ export class GameScene extends Phaser.Scene {
             //if (shiftKey.isDown) {
             //let sprite = this.physics.add.sprite(worldPoint.x, worldPoint.y, "tiles", 220);
             this.boxGroup.addBox(worldPoint.x, worldPoint.y);
+            
             //groundLayer.removeTileAtWorldXY(worldPoint.x, worldPoint.y);
             // } else {
             //groundLayer.putTileAtWorldXY(353, worldPoint.x, worldPoint.y);

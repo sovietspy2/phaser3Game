@@ -16,6 +16,7 @@ export class LoadScene extends Phaser.Scene {
       // this.load.scenePlugin('WeaponPlugin', WeaponPlugin, "weapons", CST.SCENES.GAME);
         this.load.audio("sound","assets/audio/theme.mp3");
         this.load.audio("sword","assets/audio/sword.mp3");
+        this.load.audio("spawn_box","assets/audio/spawn_box.mp3");
         //console.log(test);
         this.load.image("title_bg", "./assets/image/title_bg.jpg")
         //....
